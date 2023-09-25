@@ -7,7 +7,7 @@ function Header() {
     <header className="header">
       <Link className="header__logo" to="/" />
       <div className="header__auth">
-        <Link className="header__link header__link_type_signup" to="/sign-up">
+        <Link className="header__link" to="/sign-up">
           Регистрация
         </Link>
         <Link className="header__link header__link_type_signin" to="/sign-in">
