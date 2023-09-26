@@ -1,9 +1,10 @@
 import './AboutProject.css';
+import SectionHeader from '../SectionHeader/SectionHeader';
 
 function AboutProject() {
   return (
     <section className="about-project">
-      <h3 className="about-project__header">О проекте</h3>
+      <SectionHeader text="О проекте" />
       <div className="about-project__content">
         <div>
           <h3 className="about-project__title">Дипломный проект включал 5 этапов</h3>

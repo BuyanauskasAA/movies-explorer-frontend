@@ -1,0 +1,10 @@
+.section-header {
+  display: block;
+  margin: 0;
+  padding-bottom: 23px;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.21;
+  letter-spacing: -0.04em;
+  border-bottom: 1px solid #dadada;
+}
