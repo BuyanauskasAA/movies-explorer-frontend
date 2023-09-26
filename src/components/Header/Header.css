@@ -29,8 +29,7 @@
 }
 
 .header__link_type_signin {
-  width: 76px;
-  height: 32px;
+  padding: 8px 20px;
   border-radius: 3px;
   background-color: #3ddc84;
   color: #000;
