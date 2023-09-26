@@ -1,0 +1,66 @@
+.about-project {
+  padding: 111px 70px 110px;
+}
+
+.about-project__header {
+  display: block;
+  margin: 0;
+  padding-bottom: 23px;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.21;
+  letter-spacing: -0.04em;
+  border-bottom: 1px solid #dadada;
+}
+
+.about-project__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 70px 0 110px;
+}
+
+.about-project__title {
+  margin: 0 0 26px 0;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+.about-project__description {
+  margin: 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.about-project__infographics {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+.about-project__item {
+  display: block;
+  margin: 0;
+  padding: 9px 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+}
+
+.about-project__item_color_green {
+  background-color: #3ddc84;
+  color: #000;
+}
+
+.about-project__item_color_grey {
+  background-color: #303030;
+}
+
+.about-project__item_color_black {
+  margin-top: 5px;
+  font-weight: 500;
+  color: #8b8b8b;
+}
