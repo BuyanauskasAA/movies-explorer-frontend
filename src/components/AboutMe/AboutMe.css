@@ -1,0 +1,47 @@
+.about-me {
+  padding: 110px 70px;
+}
+
+.about-me__container {
+  display: flex;
+  justify-content: space-between;
+  gap: 270px;
+  margin-top: 66px;
+}
+
+.about-me__name {
+  margin: 0 0 19px 0;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.16;
+  letter-spacing: -0.04em;
+}
+
+.about-me__title {
+  margin: 0 0 25px 0;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.about-me__info {
+  margin: 0 0 100px 0;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.about-me__github {
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.21;
+  color: inherit;
+  text-decoration: none;
+}
+
+.about-me__avatar {
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+}
