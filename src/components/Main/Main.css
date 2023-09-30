@@ -1,3 +1,4 @@
 .main {
-    padding-top: 20px;
+  flex: 1 1 auto;
+  padding-top: 20px;
 }
