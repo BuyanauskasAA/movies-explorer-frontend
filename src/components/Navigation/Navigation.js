@@ -17,7 +17,7 @@ function Navigation() {
         </li>
         <li className="navigation__item">
           <NavLink
-            to="/saves-movies"
+            to="/saved-movies"
             className={({ isActive }) =>
               `${isActive ? 'navigation__link_active' : 'navigation__link'}`
             }
