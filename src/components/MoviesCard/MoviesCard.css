@@ -8,29 +8,48 @@
   position: absolute;
   top: 14px;
   right: 14px;
-  border: 0;
-  cursor: pointer;
-}
-
-.movies-card__save-button_saved {
-  width: 21px;
-  height: 21px;
-  background: center / contain no-repeat url(../../images/svg/save-button_saved.svg);
-}
-
-.movies-card__save-button_unsaved {
   padding: 6px 10px;
+  border: 0;
   border-radius: 10.5px;
   background-color: #313131;
   font-weight: 400;
   font-size: 10px;
   line-height: 9px;
   color: #fff;
+  cursor: pointer;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
 
-.movies-card:hover .movies-card__save-button_unsaved {
+.movies-card:hover .movies-card__save-button {
+  opacity: 1;
+}
+
+.movies-card__img-saved {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: center / contain no-repeat url(../../images/svg/save-button_saved.svg);
+}
+
+.movies-card__delete-button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 21px;
+  height: 21px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: center / contain no-repeat url(../../images/svg/delete-button.svg);
+  cursor: pointer;
+  opacity: 0;
+}
+
+.movies-card:hover .movies-card__delete-button {
   opacity: 1;
 }
 

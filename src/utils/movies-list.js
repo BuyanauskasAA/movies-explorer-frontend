@@ -10,12 +10,11 @@ import janisLittleGirlBlue from '../images/movies/janis-little-girl-blue.png';
 import mindingTheGap from '../images/movies/minding-the-gap.png';
 import dogCalledMoney from '../images/movies/dog-called-money.png';
 import makingWaves from '../images/movies/making-waves.png';
-import test from '../images/avatar.png';
 
 const moviesList = [
   {
     _id: 1,
-    imageLink: test,
+    imageLink: wordsAboutDesign,
     name: '33 слова о дизайне',
     duration: 77,
     isSaved: false,
