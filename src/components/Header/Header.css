@@ -4,13 +4,6 @@
   padding: 18px 70px;
 }
 
-.header__logo {
-  display: block;
-  width: 38px;
-  height: 38px;
-  background: center / contain no-repeat url(../../images/svg/logo.svg);
-}
-
 .header__auth {
   display: flex;
   gap: 30px;

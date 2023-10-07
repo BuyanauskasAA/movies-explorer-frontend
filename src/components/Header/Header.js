@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-import AuthContext from '../../contexts/AuthContext';
 import Navigation from '../Navigation/Navigation';
+import Logo from '../Logo/Logo';
+import AuthContext from '../../contexts/AuthContext';
 
 function Header() {
   const loggedIn = React.useContext(AuthContext);
   return (
     <header className="header">
-      <Link className="header__logo" to="/" />
+      <Logo />
       {loggedIn ? (
         <>
           <Navigation />
