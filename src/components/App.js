@@ -7,6 +7,7 @@ import Movies from './Movies/Movies';
 import SavedMovies from './SavedMovies/SavedMovies';
 import Footer from './Footer/Footer';
 import Register from './Register/Register';
+import Login from './Login/Login';
 import PageNotFound from './PageNotFound/PageNotFound';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import AuthContext from '../contexts/AuthContext';
@@ -54,6 +55,7 @@ function App() {
               }
             />
             <Route path="/signup" element={<Register />} />
+            <Route path="/signin" element={<Login />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </div>

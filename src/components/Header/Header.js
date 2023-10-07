@@ -7,6 +7,7 @@ import AuthContext from '../../contexts/AuthContext';
 
 function Header() {
   const loggedIn = React.useContext(AuthContext);
+  
   return (
     <header className="header">
       <Logo />
