@@ -6,6 +6,7 @@ import Main from './Main/Main';
 import Movies from './Movies/Movies';
 import SavedMovies from './SavedMovies/SavedMovies';
 import Footer from './Footer/Footer';
+import PageNotFound from './PageNotFound/PageNotFound';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
 function App() {
@@ -14,13 +15,39 @@ function App() {
   return (
     <CurrentUserContext.Provider value={loggedIn}>
       <div className="app">
-        <Header />
         <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/saved-movies" element={<SavedMovies />}></Route>
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <Main />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/movies"
+            element={
+              <>
+                <Header />
+                <Movies />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/saved-movies"
+            element={
+              <>
+                <Header />
+                <SavedMovies />
+                <Footer />
+              </>
+            }
+          />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
-        <Footer />
       </div>
     </CurrentUserContext.Provider>
   );
