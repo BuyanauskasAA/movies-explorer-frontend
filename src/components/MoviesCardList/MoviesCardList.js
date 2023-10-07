@@ -11,6 +11,7 @@ function MoviesCardList({ cards }) {
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__container">{cardsList}</ul>
+      <button className='movies-card-list__load-more-button' type="button">Ещё</button>
     </section>
   );
 }

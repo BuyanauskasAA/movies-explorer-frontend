@@ -12,3 +12,17 @@
   padding: 0;
   list-style: none;
 }
+
+.movies-card-list__load-more-button {
+  display: block;
+  margin: 47px auto 10px;
+  padding: 11px 147px 9px;
+  border: 1px solid #424242;
+  border-radius: 6px;
+  background-color: inherit;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.21;
+  color: #fff;
+  cursor: pointer;
+}
