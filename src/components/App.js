@@ -8,12 +8,13 @@ import SavedMovies from './SavedMovies/SavedMovies';
 import Footer from './Footer/Footer';
 import Register from './Register/Register';
 import Login from './Login/Login';
+import Profile from './Profile/Profile';
 import PageNotFound from './PageNotFound/PageNotFound';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import AuthContext from '../contexts/AuthContext';
 
 function App() {
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(true);
   const [currentUser, setCurrentUser] = React.useState({
     name: 'Виталий',
     email: 'pochta@yandex.ru',
@@ -51,6 +52,15 @@ function App() {
                   <Header />
                   <SavedMovies />
                   <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <>
+                  <Header />
+                  <Profile />
                 </>
               }
             />
