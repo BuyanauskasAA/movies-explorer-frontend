@@ -4,7 +4,7 @@ import SectionHeader from '../SectionHeader/SectionHeader';
 
 function AboutMe() {
   return (
-    <section className="about-me">
+    <section id="about-me" className="about-me">
       <SectionHeader text="Студент" />
       <div className="about-me__container">
         <div>
