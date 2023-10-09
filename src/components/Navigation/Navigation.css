@@ -7,10 +7,11 @@
 .navigation__list {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex: 1 1 auto;
   gap: 16px;
   margin: 0;
-  padding: 11px 0 0;
+  padding: 0;
   list-style: none;
   translate: 32px;
 }
@@ -41,7 +42,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 3px 0;
   padding: 8px 22px;
   border-radius: 20px;
   background-color: #313131;
@@ -52,4 +52,10 @@
 
 .navigation__link_type_account:hover {
   opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .navigation {
+    display: none;
+  }
 }

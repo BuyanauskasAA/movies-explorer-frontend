@@ -7,13 +7,14 @@ import AuthContext from '../../contexts/AuthContext';
 
 function Header() {
   const loggedIn = React.useContext(AuthContext);
-  
+
   return (
     <header className="header">
       <Logo />
       {loggedIn ? (
         <>
           <Navigation />
+          <button className="header__navigation-button"></button>
         </>
       ) : (
         <div className="header__auth">

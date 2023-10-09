@@ -1,13 +1,13 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 18px 70px;
 }
 
 .header__auth {
   display: flex;
   gap: 30px;
-  padding: 3px 0;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
@@ -35,4 +35,25 @@
 
 .header__link_type_signin:hover {
   opacity: 0.8;
+}
+
+.header__navigation-button {
+  display: none;
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+  padding: 0;
+  border: 0;
+  background-color: inherit;
+  background: center / contain no-repeat url(../../images/svg/navigation-button.svg);
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 18px 30px;
+  }
+
+  .header__navigation-button {
+    display: block;
+  }
 }
