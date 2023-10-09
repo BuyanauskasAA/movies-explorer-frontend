@@ -59,8 +59,13 @@
     line-height: 1.21;
     color: #fff;
     cursor: pointer;
+    transition: opacity 0.25s ease-in-out;
   }
   
+  .login__submit-button:hover {
+    opacity: 0.8;
+  }
+
   .login__caption {
     display: flex;
     justify-content: center;
@@ -78,5 +83,10 @@
   .login__link {
     color: #4285f4;
     text-decoration: none;
+    transition: opacity 0.25s ease-in-out;
+  }
+
+  .login__link:hover {
+    opacity: 0.7;
   }
   

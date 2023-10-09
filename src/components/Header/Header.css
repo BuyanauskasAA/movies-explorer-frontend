@@ -19,6 +19,11 @@
   align-items: center;
   color: inherit;
   text-decoration: none;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.header__link:hover {
+  opacity: 0.7;
 }
 
 .header__link_type_signin {
@@ -26,6 +31,10 @@
   border-radius: 3px;
   background-color: #3ddc84;
   color: #000;
+}
+
+.header__link_type_signin:hover {
+  opacity: 0.8;
 }
 
 .header__link_type_account {
@@ -36,4 +45,8 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
+}
+
+.header__link_type_account:hover {
+  opacity: 0.8;
 }

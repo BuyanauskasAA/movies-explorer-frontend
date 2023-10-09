@@ -25,4 +25,9 @@
   line-height: 1.21;
   color: #fff;
   cursor: pointer;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.movies-card-list__load-more-button:hover {
+  opacity: 0.8;
 }

@@ -27,4 +27,9 @@
   text-decoration: none;
   text-align: center;
   color: inherit;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.nav-tab__link:hover {
+  opacity: 0.8;
 }

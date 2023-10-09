@@ -40,4 +40,10 @@
   padding: 0;
   border: 0;
   background: center / contain no-repeat url(../../images/svg/search-button.svg);
+  cursor: pointer;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.search-form__submit-button:hover {
+  opacity: 0.8;
 }

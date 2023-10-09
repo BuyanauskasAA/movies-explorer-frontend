@@ -1,5 +1,5 @@
 .portfolio {
-  padding:  0 70px 125px;
+  padding: 0 70px 125px;
 }
 
 .portfolio__header {
@@ -35,6 +35,11 @@
   justify-content: space-between;
   color: inherit;
   text-decoration: none;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.portfolio__link:hover {
+  opacity: 0.7;
 }
 
 .portfolio__title {
