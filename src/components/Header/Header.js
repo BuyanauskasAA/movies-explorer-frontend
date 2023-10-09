@@ -14,9 +14,6 @@ function Header() {
       {loggedIn ? (
         <>
           <Navigation />
-          <Link className="header__link header__link_type_account" to="/profile">
-            Аккаунт
-          </Link>
         </>
       ) : (
         <div className="header__auth">

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import './Navigation.css';
 
 function Navigation() {
@@ -26,6 +26,9 @@ function Navigation() {
           </NavLink>
         </li>
       </ul>
+      <Link className="navigation__link navigation__link_type_account" to="/profile">
+        Аккаунт
+      </Link>
     </nav>
   );
 }

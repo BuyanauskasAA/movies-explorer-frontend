@@ -36,17 +36,3 @@
 .header__link_type_signin:hover {
   opacity: 0.8;
 }
-
-.header__link_type_account {
-  margin: 3px 0;
-  padding: 8px 22px;
-  border-radius: 20px;
-  background-color: #313131;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 16px;
-}
-
-.header__link_type_account:hover {
-  opacity: 0.8;
-}
