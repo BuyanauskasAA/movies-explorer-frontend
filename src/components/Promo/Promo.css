@@ -17,3 +17,15 @@
   letter-spacing: -0.04em;
   text-align: center;
 }
+
+@media (max-width: 768px) {
+  .promo {
+    padding: 0 20px;
+  }
+
+  .promo__title {
+    font-size: 40px;
+    line-height: 52px;
+    padding: 351px 34px 162px;
+  }
+}
