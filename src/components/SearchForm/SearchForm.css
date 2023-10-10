@@ -24,6 +24,9 @@
   border: 0;
   border-radius: 8px;
   background-color: #2f2f2f;
+  font-size: 14px;
+  line-height: 18px;
+  color: inherit;
   box-sizing: border-box;
 }
 
@@ -55,5 +58,24 @@
 
   .search-form__container {
     margin: 0 0 41px 0;
+  }
+}
+
+@media (max-width: 320px) {
+  .search {
+    padding: 0 14px;
+  }
+
+  .search-form__container {
+    margin: 0 0 47px 0;
+  }
+
+  .search-form {
+    margin: 80px 0 10px;
+  }
+
+  .search-form__input {
+    min-height: 44px;
+    padding: 13px;
   }
 }

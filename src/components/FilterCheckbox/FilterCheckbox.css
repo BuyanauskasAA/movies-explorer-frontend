@@ -52,3 +52,13 @@
   font-size: 12px;
   line-height: 18px;
 }
+
+@media (max-width: 320px) {
+  .filter-checkbox__checkbox-container {
+    gap: 13px;
+  }
+
+  .filter-checkbox__text {
+    font-size: 11px;
+  }
+}
