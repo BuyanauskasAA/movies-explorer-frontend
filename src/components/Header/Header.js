@@ -5,7 +5,7 @@ import Navigation from '../Navigation/Navigation';
 import Logo from '../Logo/Logo';
 import AuthContext from '../../contexts/AuthContext';
 
-function Header() {
+function Header({ onPopupOpen }) {
   const loggedIn = React.useContext(AuthContext);
 
   return (
@@ -14,7 +14,7 @@ function Header() {
       {loggedIn ? (
         <>
           <Navigation />
-          <button className="header__navigation-button"></button>
+          <button onClick={onPopupOpen} className="header__navigation-button"></button>
         </>
       ) : (
         <div className="header__auth">

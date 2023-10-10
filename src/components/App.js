@@ -10,15 +10,41 @@ import Register from './Register/Register';
 import Login from './Login/Login';
 import Profile from './Profile/Profile';
 import PageNotFound from './PageNotFound/PageNotFound';
+import NavigationPopup from './NavigationPopup/NavigationPopup';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import AuthContext from '../contexts/AuthContext';
 
 function App() {
+  const [isNavigationPopupOpen, setNavigationPopupOpen] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(true);
   const [currentUser, setCurrentUser] = React.useState({
     name: 'Виталий',
     email: 'pochta@yandex.ru',
   });
+
+  React.useEffect(() => {
+    function handleEscapeClose(event) {
+      if (event.key === 'Escape') {
+        closeNavigationPopup();
+      }
+    }
+
+    if (isNavigationPopupOpen) {
+      document.addEventListener('keydown', handleEscapeClose);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapeClose);
+    };
+  }, [isNavigationPopupOpen]);
+
+  function openNavigationPopup() {
+    setNavigationPopupOpen(true);
+  }
+
+  function closeNavigationPopup() {
+    setNavigationPopupOpen(false);
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -29,7 +55,7 @@ function App() {
               path="/"
               element={
                 <>
-                  <Header />
+                  <Header onPopupOpen={openNavigationPopup} />
                   <Main />
                   <Footer />
                 </>
@@ -39,7 +65,7 @@ function App() {
               path="/movies"
               element={
                 <>
-                  <Header />
+                  <Header onPopupOpen={openNavigationPopup} />
                   <Movies />
                   <Footer />
                 </>
@@ -49,7 +75,7 @@ function App() {
               path="/saved-movies"
               element={
                 <>
-                  <Header />
+                  <Header onPopupOpen={openNavigationPopup} />
                   <SavedMovies />
                   <Footer />
                 </>
@@ -59,7 +85,7 @@ function App() {
               path="/profile"
               element={
                 <>
-                  <Header />
+                  <Header onPopupOpen={openNavigationPopup} />
                   <Profile />
                 </>
               }
@@ -68,6 +94,7 @@ function App() {
             <Route path="/signin" element={<Login />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
+          <NavigationPopup isOpened={isNavigationPopupOpen} onClose={closeNavigationPopup} />
         </div>
       </AuthContext.Provider>
     </CurrentUserContext.Provider>
