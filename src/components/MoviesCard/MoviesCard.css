@@ -70,10 +70,17 @@
 }
 
 .movies-card__title {
+  max-height: 32px;
   margin: 0;
+  margin-top: 1px;
   font-weight: 500;
   font-size: 13px;
   line-height: 1.21;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .movies-card__duration {
@@ -88,4 +95,18 @@
   line-height: 10px;
   color: #8b8b8b;
   box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .movies-card__image {
+    height: 190px;
+  }
+
+  .movies-card__caption {
+    padding: 25px 0 0;
+  }
+
+  .movies-card__title {
+    -webkit-line-clamp: 1;
+  }
 }

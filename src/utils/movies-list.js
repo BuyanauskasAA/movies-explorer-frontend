@@ -66,7 +66,7 @@ const moviesList = [
     imageLink: gimmeDanger,
     name: 'Gimme Danger: История Игги и The Stooges',
     duration: 77,
-    isSaved: false,
+    isSaved: true,
   },
   {
     _id: 9,
