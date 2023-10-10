@@ -8,3 +8,10 @@
   letter-spacing: -0.04em;
   border-bottom: 1px solid #dadada;
 }
+
+@media (max-width: 320px) {
+  .section-header {
+    font-size: 18px;
+    padding-bottom: 28px;
+  }
+}
