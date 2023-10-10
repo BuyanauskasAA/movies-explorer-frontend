@@ -83,3 +83,28 @@
 .navigation-popup__link_type_profile:hover {
   opacity: 0.8;
 }
+
+@media (max-width: 320px) {
+  .navigation-popup__container {
+    width: 100%;
+  }
+
+  .navigation-popup__close-button {
+    margin: 13px 13px 0 0;
+  }
+
+  .navigation-popup__list {
+    margin: 100px 0 0;
+  }
+
+  .navigation-popup__item {
+    margin-bottom: 24px;
+  }
+
+  .navigation-popup__link_active {
+    padding-bottom: 7px;
+    border-bottom: 2px solid #fff;
+    color: inherit;
+    text-decoration: none;
+  }
+}
