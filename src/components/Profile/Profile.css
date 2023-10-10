@@ -139,3 +139,31 @@
     margin-top: 196px;
   }
 }
+
+@media (max-width: 320px) {
+  .profile {
+    margin: 66px 30px 100px;
+  }
+
+  .profile__title {
+    margin: 4px 0 64px;
+  }
+
+  .profile__input-container {
+    width: 100%;
+    padding: 17px 0 16px;
+    border-bottom: 1px solid #424242;
+  }
+
+  .profile__button-container {
+    margin-top: 365px;
+  }
+
+  .profile__edit-button {
+    font-size: 12px;
+  }
+
+  .profile__logout-button {
+    font-size: 12px;
+  }
+}
