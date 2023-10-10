@@ -53,3 +53,27 @@
   font-weight: 500;
   color: #8b8b8b;
 }
+
+@media (max-width: 768px) {
+  .about-project {
+    padding: 91px 50px 80px;
+  }
+
+  .about-project__content {
+    gap: 30px;
+    padding: 70px 0 94px;
+  }
+
+  .about-project__title {
+    margin: 0 0 21px 0;
+  }
+
+  .about-project__description {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-project__infographics {
+    grid-template-columns: 140px 1fr;
+  }
+}
