@@ -63,6 +63,34 @@
   .techs__item {
     min-width: 84px;
     font-size: 12px;
-    line-height: 1.21; 
+    line-height: 1.21;
+  }
+}
+
+@media (max-width: 320px) {
+  .techs {
+    padding: 28px 18px;
+    background-color: inherit;
+  }
+
+  .techs__title {
+    margin: 60px 0 0 0;
+    font-size: 30px;
+    line-height: 1.21;
+  }
+
+  .techs__description {
+    margin: 24px auto 50px;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .techs__list {
+    display: grid;
+    grid-template-columns: 84px 84px;
+  }
+
+  .techs__item {
+    padding: 21px 10px;
   }
 }
