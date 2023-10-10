@@ -67,3 +67,27 @@
     margin: 19px 5px 0 0;
   }
 }
+
+@media (max-width: 320px) {
+  .portfolio {
+    padding: 0 14px 104px;
+  }
+
+  .portfolio__header {
+    margin: 0 0 20px 0;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .portfolio__item {
+    padding: 20px 0 19px;
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .portfolio__arrow {
+    width: 12px;
+    height: 12px;
+    margin: 8px 4px 0 0;
+  }
+}
