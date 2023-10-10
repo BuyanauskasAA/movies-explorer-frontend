@@ -33,3 +33,22 @@
 .nav-tab__link:hover {
   opacity: 0.8;
 }
+
+@media (max-width: 320px) {
+  .nav-tab__container {
+    gap: 6px;
+  }
+  .nav-tab__item {
+    min-width: 82px;
+  }
+
+  .nav-tab__link {
+    padding: 5px 5px;
+    border-radius: 6px;
+    font-size: 10px;
+  }
+
+  .nav-tab {
+    padding: 151px 0 17px;
+  }
+}

@@ -1,5 +1,5 @@
 .promo {
-  padding: 0 40px;
+  padding: 20px 40px 0;
 }
 
 .promo__container {
@@ -20,12 +20,24 @@
 
 @media (max-width: 768px) {
   .promo {
-    padding: 0 20px;
+    padding: 20px 20px 0;
   }
 
   .promo__title {
+    padding: 351px 34px 162px;
     font-size: 40px;
     line-height: 52px;
-    padding: 351px 34px 162px;
+  }
+}
+
+@media (max-width: 320px) {
+  .promo {
+    padding: 14px 14px 0;
+  }
+
+  .promo__title {
+    padding: 220px 0 61px;
+    font-size: 29px;
+    line-height: 37px;
   }
 }
