@@ -34,3 +34,23 @@
     padding: 260px 0;
   }
 }
+
+@media (max-width: 320px) {
+  .page-not-found {
+    padding: 220px 0;
+  }
+
+  .page-not-found__title {
+    margin: 110px 0 10px;
+    font-size: 80px;
+  }
+
+  .page-not-found__text {
+    margin: 0 0 285px;
+    font-size: 12px;
+  }
+
+  .page-not-found__link {
+    font-size: 12px;
+  }
+}
