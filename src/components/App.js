@@ -16,7 +16,7 @@ import AuthContext from '../contexts/AuthContext';
 
 function App() {
   const [isNavigationPopupOpen, setNavigationPopupOpen] = React.useState(false);
-  const [loggedIn, setLoggedIn] = React.useState(true);
+  const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({
     name: 'Виталий',
     email: 'pochta@yandex.ru',
