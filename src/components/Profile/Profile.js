@@ -7,25 +7,28 @@ function Profile() {
 
   return (
     <main className="profile">
-      <h1 className="profile__title">{`Привет, ${name}!`}</h1>
       <form className="profile__form">
-        <div className="profile__form-container">
-          <label className="profile__input-container">
-            <span className="profile__label">Имя</span>
-            <input className="profile__input" name="name" type="text" placeholder={name} />
-          </label>
-          <label className="profile__input-container">
-            <span className="profile__label">E-mail</span>
-            <input className="profile__input" name="email" type="email" placeholder={email} />
-          </label>
-        </div>
+        <h1 className="profile__title">{`Привет, ${name}!`}</h1>
+        <label className="profile__input-container">
+          <span className="profile__label">Имя</span>
+          <input className="profile__input" name="name" type="text" placeholder={name} />
+        </label>
+        <label className="profile__input-container">
+          <span className="profile__label">E-mail</span>
+          <input className="profile__input" name="email" type="email" placeholder={email} />
+        </label>
         <button className="profile__submit-button" type="submit">
-          Редактировать
+          Сохранить
         </button>
       </form>
-      <button className="profile__logout-button" type="button">
-        Выйти из аккаунта
-      </button>
+      <div className="profile__button-container">
+        <button className="profile__edit-button profile__edit-button_active" type="button">
+          Редактировать
+        </button>
+        <button className="profile__logout-button profile__logout-button_active" type="button">
+          Выйти из аккаунта
+        </button>
+      </div>
     </main>
   );
 }
