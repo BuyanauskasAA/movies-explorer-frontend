@@ -85,3 +85,38 @@
     border-radius: 10px;
   }
 }
+
+@media (max-width: 320px) {
+  .about-me {
+    padding: 114px 14px 69px;
+  }
+
+  .about-me__container {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 40px;
+    margin-top: 60px;
+  }
+
+  .about-me__name {
+    margin: 0 0 20px 0;
+    font-size: 30px;
+    line-height: 1.21;
+  }
+
+  .about-me__title {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-me__info {
+    margin: 0 0 39px 0;
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-me__avatar {
+    width: 100%;
+    height: 352px;
+  }
+}
