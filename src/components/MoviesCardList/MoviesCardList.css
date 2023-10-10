@@ -8,6 +8,7 @@
   grid-template-rows: 250px;
   grid-auto-rows: 250px;
   gap: 41px 30px;
+  justify-content: center;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -45,5 +46,22 @@
 
   .movies-card-list__load-more-button {
     margin: 56px auto 10px;
+  }
+}
+
+@media (max-width: 320px) {
+  .movies-card-list {
+    padding: 40px 10px 103px;
+  }
+
+  .movies-card-list__container {
+    grid-template-columns: repeat(auto-fit, 300px);
+    grid-template-rows: 197px;
+    grid-auto-rows: 197px;
+  }
+
+  .movies-card-list__load-more-button {
+    margin: 65px auto 10px;
+    padding: 11px 107px 9px;
   }
 }
