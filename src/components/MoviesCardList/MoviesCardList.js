@@ -13,11 +13,14 @@ function MoviesCardList({ cards }) {
   return (
     <section className="movies-card-list">
       <ul className="movies-card-list__container">{cardsList}</ul>
-      {pathname === '/movies' && (
-        <button className="movies-card-list__load-more-button" type="button">
-          Ещё
-        </button>
-      )}
+      <button
+        className={`movies-card-list__load-more-button ${
+          cardsList > 11 ? 'movies-card-list__load-more-button_active' : ''
+        }`}
+        type="button"
+      >
+        Ещё
+      </button>
     </section>
   );
 }
