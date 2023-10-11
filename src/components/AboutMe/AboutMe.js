@@ -16,7 +16,12 @@ function AboutMe() {
             С&nbsp;2015 года работал в компании «СКБ Контур». После того, как прошёл курс по
             веб-разработке, начал заниматься фриланс-заказами и ушёл с постоянной работы.
           </p>
-          <a className="about-me__github" href="https://github.com/BuyanauskasAA">
+          <a
+            className="about-me__github"
+            href="https://github.com/BuyanauskasAA"
+            target="_blank"
+            rel="noreferrer"
+          >
             Github
           </a>
         </div>
