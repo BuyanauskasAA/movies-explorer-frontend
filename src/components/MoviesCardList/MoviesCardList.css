@@ -38,6 +38,14 @@
   visibility: visible;
 }
 
+.movies-card-list__not-found {
+  margin: 0;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.21;
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .movies-card-list {
     padding: 70px 30px 105px;
