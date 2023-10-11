@@ -1,6 +1,7 @@
 import './Register.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
+import FormInput from '../FormInput/FormInput';
 
 function Register() {
   return (
@@ -9,18 +10,9 @@ function Register() {
       <h1 className="register__title">Добро пожаловать!</h1>
       <form className="register__form">
         <div className="register__container">
-          <label className="register__label" for="name">
-            Имя
-          </label>
-          <input className="register__input" id="name" name="name" type="text" />
-          <label className="register__label" for="email">
-            E-mail
-          </label>
-          <input className="register__input" id="email" name="email" type="email" />
-          <label className="register__label" for="password">
-            Пароль
-          </label>
-          <input className="register__input" id="password" name="password" type="password" />
+          <FormInput name="name" type="text" text="Имя" />
+          <FormInput name="email" type="email" text="E-mail" />
+          <FormInput name="password" type="password" text="Пароль" />
         </div>
         <button className="register__submit-button" type="submit">
           Зарегистрироваться

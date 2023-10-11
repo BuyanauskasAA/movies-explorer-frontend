@@ -1,6 +1,7 @@
 import './Login.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
+import FormInput from '../FormInput/FormInput';
 
 function Login() {
   return (
@@ -9,14 +10,8 @@ function Login() {
       <h1 className="login__title">Рады видеть!</h1>
       <form className="login__form">
         <div className="login__container">
-          <label className="login__label" for="email">
-            E-mail
-          </label>
-          <input className="login__input" id="email" name="email" type="email" />
-          <label className="login__label" for="password">
-            Пароль
-          </label>
-          <input className="login__input" id="password" name="password" type="password" />
+          <FormInput name="email" type="email" text="E-mail" />
+          <FormInput name="password" type="password" text="Пароль" />
         </div>
         <button className="login__submit-button" type="submit">
           Войти
