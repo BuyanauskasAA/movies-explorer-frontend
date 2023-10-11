@@ -2,6 +2,7 @@ import './Register.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import FormInput from '../FormInput/FormInput';
+import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
 
 function Register() {
   return (
@@ -14,9 +15,7 @@ function Register() {
           <FormInput name="email" type="email" text="E-mail" />
           <FormInput name="password" type="password" text="Пароль" />
         </div>
-        <button className="register__submit-button" type="submit">
-          Зарегистрироваться
-        </button>
+        <FormSubmitButton text="Зарегистрироваться" />
       </form>
       <div className="register__caption">
         <p className="register__text">Уже зарегистрированы?</p>

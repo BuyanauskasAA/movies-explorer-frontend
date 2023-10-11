@@ -2,6 +2,7 @@ import './Login.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import FormInput from '../FormInput/FormInput';
+import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
 
 function Login() {
   return (
@@ -13,9 +14,7 @@ function Login() {
           <FormInput name="email" type="email" text="E-mail" />
           <FormInput name="password" type="password" text="Пароль" />
         </div>
-        <button className="login__submit-button" type="submit">
-          Войти
-        </button>
+        <FormSubmitButton text="Войти" />
       </form>
       <div className="login__caption">
         <p className="login__text">Ещё не зарегистрированы?</p>
