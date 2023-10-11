@@ -10,9 +10,9 @@ function MoviesCard({ card }) {
     <figure className="movies-card">
       {pathname === '/movies' &&
         (isSaved ? (
-          <div
-            className="movies-card__img-saved"
-          ></div>
+          <button
+            className="movies-card__unsave-button"
+          ></button>
         ) : (
           <button
             className="movies-card__save-button"

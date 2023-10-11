@@ -25,13 +25,15 @@
   opacity: 1;
 }
 
-.movies-card__img-saved {
+.movies-card__unsave-button {
   position: absolute;
   top: 14px;
   right: 14px;
   width: 21px;
   height: 21px;
+  border: 0;
   border-radius: 50%;
+  cursor: pointer;
   background: center / contain no-repeat url(../../images/svg/save-button_saved.svg);
 }
 
@@ -116,7 +118,7 @@
     height: 168px;
   }
 
-  .movies-card__img-saved {
+  .movies-card__unsave-button {
     top: 10px;
     right: 10px;
   }
