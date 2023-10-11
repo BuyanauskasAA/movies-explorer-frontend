@@ -11,11 +11,11 @@ function Profile() {
         <h1 className="profile__title">{`Привет, ${name}!`}</h1>
         <label className="profile__input-container">
           <span className="profile__label">Имя</span>
-          <input className="profile__input" name="name" type="text" placeholder={name} />
+          <input className="profile__input" name="name" type="text" placeholder={name} required />
         </label>
         <label className="profile__input-container">
           <span className="profile__label">E-mail</span>
-          <input className="profile__input" name="email" type="email" placeholder={email} />
+          <input className="profile__input" name="email" type="email" placeholder={email} required />
         </label>
         <button className="profile__submit-button" type="submit">
           Сохранить
