@@ -1,7 +1,10 @@
 import './MoviesCardList.css';
+import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({ cards }) {
+  const { pathname } = useLocation();
+
   const cardsList = cards.map((card) => (
     <li key={card._id}>
       <MoviesCard card={card} />
@@ -15,14 +18,14 @@ function MoviesCardList({ cards }) {
       ) : (
         <h2 className="movies-card-list__not-found">Без результатов поиска</h2>
       )}
-      <button
-        className={`movies-card-list__load-more-button ${
-          cardsList.lenght > 11 ? 'movies-card-list__load-more-button_active' : ''
-        }`}
-        type="button"
-      >
-        Ещё
-      </button>
+      {pathname === '/movies' && (
+        <button
+          className="movies-card-list__load-more-button movies-card-list__load-more-button_active"
+          type="button"
+        >
+          Ещё
+        </button>
+      )}
     </section>
   );
 }
