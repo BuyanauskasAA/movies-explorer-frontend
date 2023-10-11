@@ -21,7 +21,7 @@ function NavigationPopup({ isOpened, onClose }) {
               onClick={onClose}
               to="/"
               className={({ isActive }) =>
-                `${isActive ? 'navigation-popup__link_active' : 'navigation-popup__link'} `
+                `navigation-popup__link ${isActive ? 'navigation-popup__link_active' : ''}`
               }
             >
               Главная
@@ -32,7 +32,7 @@ function NavigationPopup({ isOpened, onClose }) {
               onClick={onClose}
               to="/movies"
               className={({ isActive }) =>
-                `${isActive ? 'navigation-popup__link_active' : 'navigation-popup__link'} `
+                `navigation-popup__link ${isActive ? 'navigation-popup__link_active' : ''}`
               }
             >
               Фильмы
@@ -43,7 +43,7 @@ function NavigationPopup({ isOpened, onClose }) {
               onClick={onClose}
               to="/saved-movies"
               className={({ isActive }) =>
-                `${isActive ? 'navigation-popup__link_active' : 'navigation-popup__link'} `
+                `navigation-popup__link ${isActive ? 'navigation-popup__link_active' : ''} `
               }
             >
               Сохранённые фильмы
