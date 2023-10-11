@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import FormInput from '../FormInput/FormInput';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
+import Error from '../Error/Error';
 
 function Register() {
   return (
@@ -15,6 +16,7 @@ function Register() {
           <FormInput name="email" type="email" text="E-mail" />
           <FormInput name="password" type="password" text="Пароль" />
         </div>
+        <Error isActive={false} text="Пользователь с таким email уже существует." />
         <FormSubmitButton text="Зарегистрироваться" />
       </form>
       <div className="register__caption">

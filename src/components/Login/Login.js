@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import FormInput from '../FormInput/FormInput';
 import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
+import Error from '../Error/Error';
 
 function Login() {
   return (
@@ -14,6 +15,7 @@ function Login() {
           <FormInput name="email" type="email" text="E-mail" />
           <FormInput name="password" type="password" text="Пароль" />
         </div>
+        <Error isActive={false} text="Вы ввели неправильный логин или пароль." />
         <FormSubmitButton text="Войти" />
       </form>
       <div className="login__caption">
