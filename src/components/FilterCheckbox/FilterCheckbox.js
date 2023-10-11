@@ -9,10 +9,10 @@ function FilterCheckbox() {
           className="filter-checkbox__invisible-checkbox"
           type="checkbox"
         />
-        <div className="filter-checkbox__visible-checkbox">
-          <div className="filter-checkbox__slider"></div>
-        </div>
-        <p className="filter-checkbox__text">Короткометражки</p>
+        <span className="filter-checkbox__visible-checkbox">
+          <span className="filter-checkbox__slider"></span>
+        </span>
+        <span className="filter-checkbox__text">Короткометражки</span>
       </label>
     </div>
   );

@@ -19,6 +19,7 @@
 }
 
 .filter-checkbox__visible-checkbox {
+  display: block;
   width: 34px;
   height: 14px;
   border-radius: 7px;
@@ -27,12 +28,13 @@
 }
 
 .filter-checkbox__slider {
+  display: block;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background-color: #fff;
   content: '';
-  translate: 2px 2px;
+  transform: translate(2px, 2px);
   transition: transform 0.4s;
 }
 
@@ -43,7 +45,7 @@
 .filter-checkbox__invisible-checkbox:checked
   + .filter-checkbox__visible-checkbox
   .filter-checkbox__slider {
-  transform: translateX(20px);
+  transform: translate(22px, 2px);
 }
 
 .filter-checkbox__text {
