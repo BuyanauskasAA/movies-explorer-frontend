@@ -73,7 +73,18 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 600px) {
+  .techs {
+    padding: 28px 18px;
+  }
+
+  .techs__list {
+    display: grid;
+    grid-template-columns: 84px 84px;
+  }
+}
+
+@media (max-width: 425px) {
   .techs {
     padding: 28px 18px;
     background-color: inherit;

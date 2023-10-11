@@ -62,7 +62,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 425px) {
   .movies-card-list {
     padding: 40px 10px 103px;
   }

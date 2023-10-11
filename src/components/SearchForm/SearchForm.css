@@ -61,7 +61,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 600px) {
   .search {
     padding: 0 14px;
   }

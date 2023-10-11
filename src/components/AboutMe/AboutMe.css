@@ -86,7 +86,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 600px) {
   .about-me {
     padding: 114px 14px 69px;
   }
@@ -116,7 +116,8 @@
   }
 
   .about-me__avatar {
-    width: 100%;
+    align-self: center;
+    width: 292px;
     height: 352px;
   }
 }

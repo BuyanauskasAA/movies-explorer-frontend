@@ -140,7 +140,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 450px) {
   .profile {
     margin: 66px 30px 100px;
   }

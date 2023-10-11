@@ -63,7 +63,7 @@
   }
 }
 
-@media (max-width: 320px) {
+@media (max-width: 600px) {
   .header {
     padding: 18px 14px;
   }
