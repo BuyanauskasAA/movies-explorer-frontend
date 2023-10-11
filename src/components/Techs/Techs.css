@@ -73,14 +73,16 @@
   }
 }
 
-@media (max-width: 600px) {
-  .techs {
-    padding: 28px 18px;
-  }
-
+@media (max-width: 750px) {
   .techs__list {
     display: grid;
     grid-template-columns: 84px 84px;
+  }
+}
+
+@media (max-width: 600px) {
+  .techs {
+    padding: 28px 18px;
   }
 }
 
