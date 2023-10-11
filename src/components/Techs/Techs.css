@@ -34,7 +34,6 @@
 .techs__item {
   display: block;
   min-width: 90px;
-  padding: 21px 10px 22px;
   background-color: #303030;
   border-radius: 10px;
   font-weight: 400;
@@ -43,6 +42,13 @@
   letter-spacing: -0.04em;
   text-align: center;
   box-sizing: border-box;
+}
+
+.techs__link {
+  display: block;
+  padding: 21px 10px 22px;
+  color: inherit;
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {
@@ -90,7 +96,7 @@
     grid-template-columns: 84px 84px;
   }
 
-  .techs__item {
+  .techs__link {
     padding: 21px 10px;
   }
 }
