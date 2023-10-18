@@ -1,31 +1,27 @@
 import './MoviesCardList.css';
-import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
+import Error from '../Error/Error';
 
-function MoviesCardList({ cards }) {
-  const { pathname } = useLocation();
-
+function MoviesCardList({ cards, isLoading, isNotFound, isErrorVisible }) {
   const cardsList = cards.map((card) => (
-    <li key={card._id}>
+    <li key={card.id}>
       <MoviesCard card={card} />
     </li>
   ));
 
   return (
     <section className="movies-card-list">
-      {cardsList.length > 0 ? (
-        <ul className="movies-card-list__container">{cardsList}</ul>
-      ) : (
-        <h2 className="movies-card-list__not-found">Без результатов поиска</h2>
-      )}
-      {pathname === '/movies' && (
-        <button
-          className="movies-card-list__load-more-button movies-card-list__load-more-button_active"
-          type="button"
-        >
-          Ещё
-        </button>
-      )}
+      {isNotFound && <h2 className="movies-card-list__not-found">Ничего не найдено</h2>}
+      {isLoading && <Preloader />}
+      {cardsList.length > 0 && <ul className="movies-card-list__container">{cardsList}</ul>}
+      <Error
+        isActive={isErrorVisible}
+        text="Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
+      />
+      {/* <button className="movies-card-list__load-more-button" type="button">
+        Ещё
+      </button> */}
     </section>
   );
 }

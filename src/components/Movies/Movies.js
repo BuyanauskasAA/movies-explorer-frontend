@@ -1,13 +1,30 @@
+import React from 'react';
 import './Movies.css';
-import moviesList from '../../utils/movies-list';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies() {
+function Movies({
+  onShortFilmFilterChange,
+  isShortFilmFilterOn,
+  onSearchFormSubmit,
+  moviesList,
+  isLoading,
+  isNotFound,
+  isErrorVisible,
+}) {
   return (
     <main className="movies">
-      <SearchForm />
-      <MoviesCardList cards={moviesList} />
+      <SearchForm
+        isShortFilmFilterOn={isShortFilmFilterOn}
+        onFilter={onShortFilmFilterChange}
+        onSearchFormSubmit={onSearchFormSubmit}
+      />
+      <MoviesCardList
+        cards={moviesList}
+        isLoading={isLoading}
+        isNotFound={isNotFound}
+        isErrorVisible={isErrorVisible}
+      />
     </main>
   );
 }

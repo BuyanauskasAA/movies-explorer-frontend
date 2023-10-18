@@ -13,9 +13,15 @@ import PageNotFound from './PageNotFound/PageNotFound';
 import NavigationPopup from './NavigationPopup/NavigationPopup';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import AuthContext from '../contexts/AuthContext';
+import { getMoviesList } from '../utils/MoviesApi';
 
 function App() {
   const [isNavigationPopupOpen, setNavigationPopupOpen] = React.useState(false);
+  const [isShortFilmFilterOn, setShortFilmFilterOn] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
+  const [isNotFound, setNotFound] = React.useState(false);
+  const [isErrorVisible, setErrorVisible] = React.useState(false)
+  const [moviesList, setMoviesList] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({
     name: 'Виталий',
@@ -38,12 +44,54 @@ function App() {
     };
   }, [isNavigationPopupOpen]);
 
+  React.useEffect(() => {
+    if (localStorage.getItem('isNotFound') !== null) {;
+      setNotFound(JSON.parse(localStorage.getItem('isNotFound')));
+    }
+
+    if (localStorage.getItem('moviesList') !== null) {
+      setMoviesList(JSON.parse(localStorage.getItem('moviesList')));
+    }
+
+    if (localStorage.getItem('isShortFilmFilterOn') !== null) {
+      setShortFilmFilterOn(JSON.parse(localStorage.getItem('isShortFilmFilterOn')));
+    }
+  }, []);
+
   function openNavigationPopup() {
     setNavigationPopupOpen(true);
   }
 
   function closeNavigationPopup() {
     setNavigationPopupOpen(false);
+  }
+
+  function handleSearchFormSubmit(request, isShortFilm) {
+    setLoading(true);
+    setNotFound(false);
+    localStorage.setItem('isNotFound', false);
+    setMoviesList([]);
+    getMoviesList()
+      .then((movies) => {
+        const filteredMovies = isShortFilm
+          ? movies.filter(
+              (movie) =>
+                movie.nameRU.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52
+            )
+          : movies.filter((movie) => movie.nameRU.toLowerCase().includes(request.toLowerCase()));
+
+        if (filteredMovies.length === 0) {
+          setNotFound(true);
+          localStorage.setItem('isNotFound', true);
+        }
+
+        setMoviesList(filteredMovies);
+        localStorage.setItem('moviesList', JSON.stringify(filteredMovies));
+      })
+      .catch(() => {
+        setErrorVisible(true);
+      })
+      .finally(() => setLoading(false));
   }
 
   return (
@@ -66,7 +114,15 @@ function App() {
               element={
                 <>
                   <Header onPopupOpen={openNavigationPopup} />
-                  <Movies />
+                  <Movies
+                    onShortFilmFilterChange={setShortFilmFilterOn}
+                    isShortFilmFilterOn={isShortFilmFilterOn}
+                    onSearchFormSubmit={handleSearchFormSubmit}
+                    moviesList={moviesList}
+                    isLoading={isLoading}
+                    isNotFound={isNotFound}
+                    isErrorVisible={isErrorVisible}
+                  />
                   <Footer />
                 </>
               }
