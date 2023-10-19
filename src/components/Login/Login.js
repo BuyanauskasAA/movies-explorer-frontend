@@ -6,7 +6,7 @@ import Error from '../Error/Error';
 
 function Login({ onLogin, isErrorVisible, errorStatus }) {
   const [formValue, setFormValue] = React.useState({});
-  const [formErrors, setFormErrors] = React.useState({ name: '', email: '', password: '' });
+  const [formErrors, setFormErrors] = React.useState({ email: '', password: '' });
   const [isFormValid, setFormValid] = React.useState(false);
 
   function handleChange(event) {

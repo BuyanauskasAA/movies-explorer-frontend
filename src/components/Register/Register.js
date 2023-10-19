@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import Error from '../Error/Error';
 
-function Register({ onRegister, isErrorVisible, registerErrorStatus }) {
+function Register({ onRegister, isErrorVisible, errorStatus }) {
   const [formValue, setFormValue] = React.useState({});
   const [formErrors, setFormErrors] = React.useState({ name: '', email: '', password: '' });
   const [isFormValid, setFormValid] = React.useState(false);
@@ -80,9 +80,9 @@ function Register({ onRegister, isErrorVisible, registerErrorStatus }) {
         <Error
           isActive={isErrorVisible}
           text={
-            registerErrorStatus === 409
-              ? 'Пользователь с таким email уже существует'
-              : 'При регистрации пользователя произошла ошибка'
+            errorStatus === 409
+              ? 'Пользователь с таким email уже существует.'
+              : 'При регистрации пользователя произошла ошибка.'
           }
         />
         <button

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import Header from './Header/Header';
 import Main from './Main/Main';
@@ -15,7 +15,7 @@ import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import AuthContext from '../contexts/AuthContext';
 import { getMoviesList } from '../utils/MoviesApi';
-import { signUp, saveMovie } from '../utils/MainApi';
+import { signUp, saveMovie, signIn, getUser, signOut, updateUser } from '../utils/MainApi';
 
 function App() {
   const [isNavigationPopupOpen, setNavigationPopupOpen] = React.useState(false);
@@ -25,11 +25,27 @@ function App() {
   const [isSearchErrorVisible, setSearchErrorVisible] = React.useState(false);
   const [isRegisterErrorVisible, setRegisterErrorVisible] = React.useState(false);
   const [registerErrorStatus, setRegisterErrorStatus] = React.useState(0);
+  const [isLoginErrorVisible, setLoginErrorVisible] = React.useState(false);
+  const [loginErrorStatus, setLoginErrorStatus] = React.useState(0);
+  const [isProfileErrorVisible, setProfileErrorVisible] = React.useState(false);
+  const [profileErrorStatus, setProfileErrorStatus] = React.useState(0);
   const [moviesList, setMoviesList] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
 
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  localStorage.setItem('lastRoute', pathname);
+
+  React.useEffect(() => {
+    getUser()
+      .then((user) => {
+        setCurrentUser(user);
+        setLoggedIn(true);
+        handleNavigate();
+      })
+      .catch((error) => console.log(`Ошибка ${error}`));
+  }, []);
 
   React.useEffect(() => {
     function handleEscapeClose(event) {
@@ -60,6 +76,11 @@ function App() {
       setShortFilmFilterOn(JSON.parse(localStorage.getItem('isShortFilmFilterOn')));
     }
   }, []);
+
+  function handleNavigate() {
+    localStorage.setItem('lastRoute', pathname);
+    navigate(localStorage.getItem('lastRoute'), { replace: true });
+  }
 
   function openNavigationPopup() {
     setNavigationPopupOpen(true);
@@ -108,12 +129,53 @@ function App() {
       .then((user) => {
         setCurrentUser(user);
         setLoggedIn(true);
-        navigate('/', { replace: true });
+        navigate('/movies', { replace: true });
       })
       .catch((error) => {
-        console.log(error);
-        setRegisterErrorStatus(error.status);
+        console.log(`Ошибка ${error}`);
+        setRegisterErrorStatus(error);
         setRegisterErrorVisible(true);
+      });
+  }
+
+  function handleLogin(userInfo) {
+    signIn(userInfo)
+      .then((user) => {
+        setCurrentUser(user);
+        setLoggedIn(true);
+        navigate('/movies', { replace: true });
+      })
+      .catch((error) => {
+        console.log(`Ошибка ${error}`);
+        setLoginErrorStatus(error);
+        setLoginErrorVisible(true);
+      });
+  }
+
+  function handleUpdateuser(userInfo) {
+    updateUser(userInfo)
+      .then((user) => {
+        setCurrentUser(user);
+      })
+      .catch((error) => {
+        console.log(`Ошибка ${error}`);
+        setProfileErrorStatus(error);
+        setProfileErrorVisible(true);
+      });
+  }
+
+  function handleLogout() {
+    signOut()
+      .then(() => {
+        localStorage.removeItem('isNotFound');
+        localStorage.removeItem('searchInputValue');
+        localStorage.removeItem('isShortFilmFilterOn');
+        localStorage.removeItem('moviesList');
+        localStorage.removeItem('lastRoute');
+        navigate('/signin', { replace: true });
+      })
+      .catch((error) => {
+        console.log(`Ошибка ${error}`);
       });
   }
 
@@ -126,13 +188,9 @@ function App() {
               path="/"
               element={
                 <>
-                  <ProtectedRoute
-                    element={Header}
-                    onPopupOpen={openNavigationPopup}
-                    loggedIn={loggedIn}
-                  />
-                  <ProtectedRoute element={Main} loggedIn={loggedIn} />
-                  <ProtectedRoute element={Footer} loggedIn={loggedIn} />
+                  <ProtectedRoute element={Header} onPopupOpen={openNavigationPopup} />
+                  <ProtectedRoute element={Main} />
+                  <ProtectedRoute element={Footer} />
                 </>
               }
             />
@@ -140,11 +198,7 @@ function App() {
               path="/movies"
               element={
                 <>
-                  <ProtectedRoute
-                    element={Header}
-                    onPopupOpen={openNavigationPopup}
-                    loggedIn={loggedIn}
-                  />
+                  <ProtectedRoute element={Header} onPopupOpen={openNavigationPopup} />
                   <ProtectedRoute
                     element={Movies}
                     onShortFilmFilterChange={setShortFilmFilterOn}
@@ -155,9 +209,8 @@ function App() {
                     isNotFound={isNotFound}
                     isErrorVisible={isSearchErrorVisible}
                     onMovieCardSave={handleMovieCardSave}
-                    loggedIn={loggedIn}
                   />
-                  <ProtectedRoute element={Footer} loggedIn={loggedIn} />
+                  <ProtectedRoute element={Footer} />
                 </>
               }
             />
@@ -165,13 +218,9 @@ function App() {
               path="/saved-movies"
               element={
                 <>
-                  <ProtectedRoute
-                    element={Header}
-                    onPopupOpen={openNavigationPopup}
-                    loggedIn={loggedIn}
-                  />
-                  <ProtectedRoute element={SavedMovies} loggedIn={loggedIn} />
-                  <ProtectedRoute element={Footer} loggedIn={loggedIn} />
+                  <ProtectedRoute element={Header} onPopupOpen={openNavigationPopup} />
+                  <ProtectedRoute element={SavedMovies} />
+                  <ProtectedRoute element={Footer} />
                 </>
               }
             />
@@ -179,12 +228,14 @@ function App() {
               path="/profile"
               element={
                 <>
+                  <ProtectedRoute element={Header} onPopupOpen={openNavigationPopup} />
                   <ProtectedRoute
-                    element={Header}
-                    onPopupOpen={openNavigationPopup}
-                    loggedIn={loggedIn}
+                    element={Profile}
+                    onLogout={handleLogout}
+                    onUpdate={handleUpdateuser}
+                    isErrorVisible={isProfileErrorVisible}
+                    errorStatus={profileErrorStatus}
                   />
-                  <ProtectedRoute element={Profile} loggedIn={loggedIn} />
                 </>
               }
             />
@@ -194,11 +245,20 @@ function App() {
                 <Register
                   onRegister={handleRegister}
                   isErrorVisible={isRegisterErrorVisible}
-                  registerErrorStatus={registerErrorStatus}
+                  errorStatus={registerErrorStatus}
                 />
               }
             />
-            <Route path="/signin" element={<Login />} />
+            <Route
+              path="/signin"
+              element={
+                <Login
+                  onLogin={handleLogin}
+                  isErrorVisible={isLoginErrorVisible}
+                  errorStatus={loginErrorStatus}
+                />
+              }
+            />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
           <NavigationPopup isOpened={isNavigationPopupOpen} onClose={closeNavigationPopup} />

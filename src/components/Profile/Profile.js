@@ -2,33 +2,92 @@ import React from 'react';
 import './Profile.css';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function Profile() {
-  const { name, email } = React.useContext(CurrentUserContext);
+function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus }) {
+  const user = React.useContext(CurrentUserContext);
+
+  React.useEffect(() => {
+    setFormValue({ name: user.name, email: user.email });
+  }, []);
+
+  const [isEditionEnable, setEditionEnable] = React.useState(false);
+  const [formValue, setFormValue] = React.useState({});
+  const [formErrors, setFormErrors] = React.useState({ name: '', email: '' });
+  const [isFormValid, setFormValid] = React.useState(false);
+
+  function handleChange(event) {
+    const target = event.target;
+    const { name, value } = target;
+    setFormValue({ ...formValue, [name]: value });
+    setFormErrors({ ...formErrors, [name]: target.validationMessage });
+    setFormValid(target.closest('form').checkValidity());
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    onUpdate(formValue);
+    setEditionEnable(false);
+  }
+
+  function handleEditionEnable() {
+    setEditionEnable(true);
+  }
 
   return (
     <main className="profile">
       <form className="profile__form">
-        <h1 className="profile__title">{`Привет, ${name}!`}</h1>
+        <h1 className="profile__title">{`Привет, ${user.name}!`}</h1>
+        <span className="profile-input-error">{formErrors.name}</span>
         <label className="profile__input-container">
           <span className="profile__label">Имя</span>
-          <input className="profile__input" name="name" type="text" placeholder={name} required />
+          <input
+            onChange={handleChange}
+            className="profile__input"
+            name="name"
+            type="text"
+            required
+            value={formValue.name}
+            disabled={!isEditionEnable}
+          />
         </label>
         <label className="profile__input-container">
           <span className="profile__label">E-mail</span>
-          <input className="profile__input" name="email" type="email" placeholder={email} required />
+          <input
+            onChange={handleChange}
+            className="profile__input"
+            name="email"
+            type="email"
+            required
+            value={formValue.email}
+            disabled={!isEditionEnable}
+          />
         </label>
-        <button className="profile__submit-button" type="submit">
-          Сохранить
-        </button>
+        <span className="profile-input-error">{formErrors.email}</span>
+        <span className={`profile-form-error ${isErrorVisible ? 'profile-form-error_active' : ''}`}>
+          asdasdasdas
+        </span>
+        {isEditionEnable && (
+          <button
+            onClick={handleSubmit}
+            className={`profile__submit-button ${
+              isFormValid ? '' : 'profile__submit-button_disabled'
+            }`}
+            type="submit"
+          >
+            Сохранить
+          </button>
+        )}
       </form>
-      <div className="profile__button-container">
-        <button className="profile__edit-button profile__edit-button_active" type="button">
-          Редактировать
-        </button>
-        <button className="profile__logout-button profile__logout-button_active" type="button">
-          Выйти из аккаунта
-        </button>
-      </div>
+      {!isEditionEnable && (
+        <div className="profile__button-container">
+          <button onClick={handleEditionEnable} className="profile__edit-button" type="button">
+            Редактировать
+          </button>
+          <button onClick={onLogout} className="profile__logout-button" type="button">
+            Выйти из аккаунта
+          </button>
+        </div>
+      )}
     </main>
   );
 }
