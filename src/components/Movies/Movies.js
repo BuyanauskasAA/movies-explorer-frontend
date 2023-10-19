@@ -8,9 +8,12 @@ function Movies({
   isShortFilmFilterOn,
   onSearchFormSubmit,
   moviesList,
+  savedMoviesList,
   isLoading,
   isNotFound,
   isErrorVisible,
+  onMovieCardSave,
+  onMovieCardRemove,
 }) {
   return (
     <main className="movies">
@@ -21,9 +24,12 @@ function Movies({
       />
       <MoviesCardList
         cards={moviesList}
+        savedCards={savedMoviesList}
         isLoading={isLoading}
         isNotFound={isNotFound}
         isErrorVisible={isErrorVisible}
+        onMovieCardSave={onMovieCardSave}
+        onMovieCardRemove={onMovieCardRemove}
       />
     </main>
   );

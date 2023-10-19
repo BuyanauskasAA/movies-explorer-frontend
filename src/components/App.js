@@ -15,7 +15,16 @@ import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import AuthContext from '../contexts/AuthContext';
 import { getMoviesList } from '../utils/MoviesApi';
-import { signUp, saveMovie, signIn, getUser, signOut, updateUser } from '../utils/MainApi';
+import {
+  signUp,
+  saveMovie,
+  signIn,
+  getUser,
+  signOut,
+  updateUser,
+  getMovies,
+  deleteMovie,
+} from '../utils/MainApi';
 
 function App() {
   const [isNavigationPopupOpen, setNavigationPopupOpen] = React.useState(false);
@@ -30,6 +39,7 @@ function App() {
   const [isProfileErrorVisible, setProfileErrorVisible] = React.useState(false);
   const [profileErrorStatus, setProfileErrorStatus] = React.useState(0);
   const [moviesList, setMoviesList] = React.useState([]);
+  const [savedMoviesList, setSavedMoviesList] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -48,6 +58,14 @@ function App() {
   }, []);
 
   React.useEffect(() => {
+    if (loggedIn) {
+      getMovies().then((movies) => {
+        setSavedMoviesList(movies);
+      });
+    }
+  }, [loggedIn]);
+
+  React.useEffect(() => {
     function handleEscapeClose(event) {
       if (event.key === 'Escape') {
         closeNavigationPopup();
@@ -64,15 +82,15 @@ function App() {
   }, [isNavigationPopupOpen]);
 
   React.useEffect(() => {
-    if (localStorage.getItem('isNotFound') !== null) {
+    if (pathname === '/movies' && localStorage.getItem('isNotFound') !== null) {
       setNotFound(JSON.parse(localStorage.getItem('isNotFound')));
     }
 
-    if (localStorage.getItem('moviesList') !== null) {
+    if (pathname === '/movies' && localStorage.getItem('moviesList') !== null) {
       setMoviesList(JSON.parse(localStorage.getItem('moviesList')));
     }
 
-    if (localStorage.getItem('isShortFilmFilterOn') !== null) {
+    if (pathname === '/movies' && localStorage.getItem('isShortFilmFilterOn') !== null) {
       setShortFilmFilterOn(JSON.parse(localStorage.getItem('isShortFilmFilterOn')));
     }
   }, []);
@@ -91,37 +109,60 @@ function App() {
   }
 
   function handleSearchFormSubmit(request, isShortFilm) {
-    setLoading(true);
     setNotFound(false);
-    localStorage.setItem('isNotFound', false);
-    setMoviesList([]);
-    getMoviesList()
-      .then((movies) => {
-        const filteredMovies = isShortFilm
-          ? movies.filter(
-              (movie) =>
-                movie.nameRU.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52
-            )
-          : movies.filter((movie) => movie.nameRU.toLowerCase().includes(request.toLowerCase()));
+    if (pathname === '/movies') {
+      setLoading(true);
+      setNotFound(false);
+      localStorage.setItem('isNotFound', false);
+      setMoviesList([]);
+      getMoviesList()
+        .then((movies) => {
+          const filteredMovies = isShortFilm
+            ? movies.filter(
+                (movie) =>
+                  (movie.nameRU.toLowerCase().includes(request.toLowerCase()) &&
+                    movie.duration <= 52) ||
+                  (movie.nameEN.toLowerCase().includes(request.toLowerCase()) &&
+                    movie.duration <= 52)
+              )
+            : movies.filter(
+                (movie) =>
+                  movie.nameRU.toLowerCase().includes(request.toLowerCase()) ||
+                  movie.nameEN.toLowerCase().includes(request.toLowerCase())
+              );
 
-        if (filteredMovies.length === 0) {
-          setNotFound(true);
-          localStorage.setItem('isNotFound', true);
-        }
+          if (filteredMovies.length === 0) {
+            setNotFound(true);
+            localStorage.setItem('isNotFound', true);
+          }
 
-        setMoviesList(filteredMovies);
-        localStorage.setItem('moviesList', JSON.stringify(filteredMovies));
-      })
-      .catch(() => {
-        setSearchErrorVisible(true);
-      })
-      .finally(() => setLoading(false));
-  }
+          setMoviesList(filteredMovies);
+          localStorage.setItem('moviesList', JSON.stringify(filteredMovies));
+        })
+        .catch(() => {
+          setSearchErrorVisible(true);
+        })
+        .finally(() => setLoading(false));
+    } else {
+      const filteredMovies = isShortFilm
+        ? savedMoviesList.filter(
+            (movie) =>
+              (movie.nameRU.toLowerCase().includes(request.toLowerCase()) &&
+                movie.duration <= 52) ||
+              (movie.nameEN.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52)
+          )
+        : savedMoviesList.filter(
+            (movie) =>
+              movie.nameRU.toLowerCase().includes(request.toLowerCase()) ||
+              movie.nameEN.toLowerCase().includes(request.toLowerCase())
+          );
 
-  function handleMovieCardSave(movieInfo) {
-    saveMovie(movieInfo)
-      .then((movie) => console.log(movie))
-      .catch(console.error);
+      if (filteredMovies.length === 0) {
+        setNotFound(true);
+      }
+
+      setSavedMoviesList(filteredMovies);
+    }
   }
 
   function handleRegister(userInfo) {
@@ -179,6 +220,34 @@ function App() {
       });
   }
 
+  function handleMovieCardSave(movieInfo) {
+    saveMovie(movieInfo)
+      .then((movie) => {
+        setSavedMoviesList([...savedMoviesList, movie]);
+      })
+      .catch((error) => {
+        console.log(`Ошибка ${error}`);
+      });
+  }
+
+  function handleMovieCardRemove(movieId) {
+    let requestId;
+    if (pathname === '/movies') {
+      const { _id } = savedMoviesList.find((movie) => movieId === movie.movieId);
+      requestId = _id;
+    } else {
+      requestId = movieId;
+    }
+    deleteMovie(requestId)
+      .then((movie) => {
+        const filteredMovies = savedMoviesList.filter((item) => item._id !== movie._id);
+        setSavedMoviesList(filteredMovies);
+      })
+      .catch((error) => {
+        console.log(`Ошибка ${error}`);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <AuthContext.Provider value={loggedIn}>
@@ -205,10 +274,12 @@ function App() {
                     isShortFilmFilterOn={isShortFilmFilterOn}
                     onSearchFormSubmit={handleSearchFormSubmit}
                     moviesList={moviesList}
+                    savedMoviesList={savedMoviesList}
                     isLoading={isLoading}
                     isNotFound={isNotFound}
                     isErrorVisible={isSearchErrorVisible}
                     onMovieCardSave={handleMovieCardSave}
+                    onMovieCardRemove={handleMovieCardRemove}
                   />
                   <ProtectedRoute element={Footer} />
                 </>
@@ -219,7 +290,15 @@ function App() {
               element={
                 <>
                   <ProtectedRoute element={Header} onPopupOpen={openNavigationPopup} />
-                  <ProtectedRoute element={SavedMovies} />
+                  <ProtectedRoute
+                    element={SavedMovies}
+                    savedMoviesList={savedMoviesList}
+                    isNotFound={isNotFound}
+                    onMovieCardRemove={handleMovieCardRemove}
+                    onShortFilmFilterChange={setShortFilmFilterOn}
+                    isShortFilmFilterOn={isShortFilmFilterOn}
+                    onSearchFormSubmit={handleSearchFormSubmit}
+                  />
                   <ProtectedRoute element={Footer} />
                 </>
               }

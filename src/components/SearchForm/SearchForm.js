@@ -1,11 +1,14 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import Error from '../Error/Error';
 
 function SearchForm({ isShortFilmFilterOn, onFilter, onSearchFormSubmit }) {
+  const { pathname } = useLocation();
+
   React.useEffect(() => {
-    if (localStorage.getItem('searchInputValue') !== null) {
+    if (pathname === '/movies' && localStorage.getItem('searchInputValue') !== null) {
       inputValue.current.value = localStorage.getItem('searchInputValue');
     }
   }, []);
@@ -20,8 +23,10 @@ function SearchForm({ isShortFilmFilterOn, onFilter, onSearchFormSubmit }) {
   function onSubmit(event) {
     event.preventDefault();
     if (isInputValid) {
-      localStorage.setItem('isShortFilmFilterOn', isShortFilmFilterOn);
-      localStorage.setItem('searchInputValue', inputValue.current.value);
+      if (pathname === '/movies') {
+        localStorage.setItem('isShortFilmFilterOn', isShortFilmFilterOn);
+        localStorage.setItem('searchInputValue', inputValue.current.value);
+      }
       onSearchFormSubmit(inputValue.current.value, isShortFilmFilterOn);
     }
   }

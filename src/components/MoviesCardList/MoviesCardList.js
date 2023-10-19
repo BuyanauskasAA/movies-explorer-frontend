@@ -4,7 +4,15 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import Error from '../Error/Error';
 
-function MoviesCardList({ cards, isLoading, isNotFound, isErrorVisible }) {
+function MoviesCardList({
+  cards,
+  isLoading,
+  isNotFound,
+  isErrorVisible,
+  onMovieCardSave,
+  savedCards,
+  onMovieCardRemove,
+}) {
   const [initialCardsCount, setInitialCardsCount] = React.useState(0);
 
   React.useEffect(() => {
@@ -24,7 +32,7 @@ function MoviesCardList({ cards, isLoading, isNotFound, isErrorVisible }) {
     return () => {
       window.removeEventListener('resize', onResize);
     };
-  }, [cards]);
+  }, []);
 
   function handleShowMore() {
     if (window.innerWidth >= 1280) {
@@ -36,11 +44,20 @@ function MoviesCardList({ cards, isLoading, isNotFound, isErrorVisible }) {
     }
   }
 
-  const cardsList = cards.slice(0, initialCardsCount).map((card) => (
-    <li key={card.id}>
-      <MoviesCard card={card} />
-    </li>
-  ));
+  const likedCards = savedCards.map((card) => card.movieId);
+
+  const cardsList = cards.slice(0, initialCardsCount).map((card) => {
+    card.isLiked = likedCards.includes(card.id);
+    return (
+      <li key={card.id}>
+        <MoviesCard
+          card={card}
+          onMovieCardSave={onMovieCardSave}
+          onMovieCardRemove={onMovieCardRemove}
+        />
+      </li>
+    );
+  });
 
   let isButtonVisible;
 
@@ -51,7 +68,7 @@ function MoviesCardList({ cards, isLoading, isNotFound, isErrorVisible }) {
   }
 
   return (
-    <section onResize={() => console.log(window.innerWidth)} className="movies-card-list">
+    <section className="movies-card-list">
       {isNotFound && <h2 className="movies-card-list__not-found">Ничего не найдено</h2>}
       {isLoading && <Preloader />}
       {cardsList.length > 0 && <ul className="movies-card-list__container">{cardsList}</ul>}
