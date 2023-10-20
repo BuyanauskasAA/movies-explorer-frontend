@@ -24,7 +24,6 @@ function SearchForm({ isShortFilmFilterOn, onFilter, onSearchFormSubmit }) {
     event.preventDefault();
     if (isInputValid) {
       if (pathname === '/movies') {
-        localStorage.setItem('isShortFilmFilterOn', isShortFilmFilterOn);
         localStorage.setItem('searchInputValue', inputValue.current.value);
       }
       onSearchFormSubmit(inputValue.current.value, isShortFilmFilterOn);

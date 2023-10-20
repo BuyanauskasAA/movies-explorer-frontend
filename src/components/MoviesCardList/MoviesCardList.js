@@ -12,6 +12,7 @@ function MoviesCardList({
   onMovieCardSave,
   savedCards,
   onMovieCardRemove,
+  isShortFilmFilterOn,
 }) {
   const [initialCardsCount, setInitialCardsCount] = React.useState(0);
 
@@ -46,25 +47,49 @@ function MoviesCardList({
 
   const likedCards = savedCards.map((card) => card.movieId);
 
-  const cardsList = cards.slice(0, initialCardsCount).map((card) => {
-    card.isLiked = likedCards.includes(card.id);
-    return (
-      <li key={card.id}>
-        <MoviesCard
-          card={card}
-          onMovieCardSave={onMovieCardSave}
-          onMovieCardRemove={onMovieCardRemove}
-        />
-      </li>
-    );
-  });
+  const cardsList = isShortFilmFilterOn
+    ? cards
+        .filter((card) => card.duration <= 40)
+        .slice(0, initialCardsCount)
+        .map((card) => {
+          card.isLiked = likedCards.includes(card.id);
+          return (
+            <li key={card.id}>
+              <MoviesCard
+                card={card}
+                onMovieCardSave={onMovieCardSave}
+                onMovieCardRemove={onMovieCardRemove}
+              />
+            </li>
+          );
+        })
+    : cards.slice(0, initialCardsCount).map((card) => {
+        card.isLiked = likedCards.includes(card.id);
+        return (
+          <li key={card.id}>
+            <MoviesCard
+              card={card}
+              onMovieCardSave={onMovieCardSave}
+              onMovieCardRemove={onMovieCardRemove}
+            />
+          </li>
+        );
+      });
 
   let isButtonVisible;
 
-  if (cards.length > initialCardsCount) {
-    isButtonVisible = true;
+  if (isShortFilmFilterOn) {
+    if (cards.filter((card) => card.duration <= 40).length > initialCardsCount) {
+      isButtonVisible = true;
+    } else {
+      isButtonVisible = false;
+    }
   } else {
-    isButtonVisible = false;
+    if (cards.length > initialCardsCount) {
+      isButtonVisible = true;
+    } else {
+      isButtonVisible = false;
+    }
   }
 
   return (

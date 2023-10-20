@@ -30,6 +30,7 @@ function Movies({
         isErrorVisible={isErrorVisible}
         onMovieCardSave={onMovieCardSave}
         onMovieCardRemove={onMovieCardRemove}
+        isShortFilmFilterOn={isShortFilmFilterOn}
       />
     </main>
   );

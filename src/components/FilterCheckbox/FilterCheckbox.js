@@ -6,6 +6,7 @@ function FilterCheckbox({ onFilterChange, isFilterOn }) {
 
   function handleFilterChange() {
     onFilterChange(filter.current.checked);
+    localStorage.setItem('isShortFilmFilterOn', filter.current.checked);
   }
 
   return (
