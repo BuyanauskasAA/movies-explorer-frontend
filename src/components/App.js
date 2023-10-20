@@ -257,9 +257,9 @@ function App() {
               path="/"
               element={
                 <>
-                  <ProtectedRoute element={Header} onPopupOpen={openNavigationPopup} />
-                  <ProtectedRoute element={Main} />
-                  <ProtectedRoute element={Footer} />
+                  <Header onPopupOpen={openNavigationPopup} />
+                  <Main />
+                  <Footer />
                 </>
               }
             />
