@@ -4,7 +4,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import SavedMoviesList from '../SavedMoviesList/SavedMoviesList';
 
 function SavedMovies({
-  savedMoviesList,
+  filteredSavedMoviesList,
   isNotFound,
   onMovieCardRemove,
   isShortFilmFilterOn,
@@ -19,7 +19,8 @@ function SavedMovies({
         onSearchFormSubmit={onSearchFormSubmit}
       />
       <SavedMoviesList
-        cards={savedMoviesList}
+        isShortFilmFilterOn={isShortFilmFilterOn}
+        cards={filteredSavedMoviesList}
         isNotFound={isNotFound}
         onMovieCardRemove={onMovieCardRemove}
       />

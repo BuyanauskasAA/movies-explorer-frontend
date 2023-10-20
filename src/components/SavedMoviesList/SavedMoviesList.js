@@ -2,15 +2,20 @@ import React from 'react';
 import './SavedMoviesList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function SavedMoviesList({ isNotFound, cards, onMovieCardRemove }) {
-  const cardsList = cards.map((card) => (
-      <li key={card._id}>
-        <MoviesCard
-          card={card}
-          onMovieCardRemove={onMovieCardRemove}
-        />
-      </li>
-    ));
+function SavedMoviesList({ isNotFound, cards, onMovieCardRemove, isShortFilmFilterOn }) {
+  const cardsList = isShortFilmFilterOn
+    ? cards
+        .filter((card) => card.duration <= 40)
+        .map((card) => (
+          <li key={card._id}>
+            <MoviesCard card={card} onMovieCardRemove={onMovieCardRemove} />
+          </li>
+        ))
+    : cards.map((card) => (
+        <li key={card._id}>
+          <MoviesCard card={card} onMovieCardRemove={onMovieCardRemove} />
+        </li>
+      ));
 
   return (
     <section className="saved-movies-list">

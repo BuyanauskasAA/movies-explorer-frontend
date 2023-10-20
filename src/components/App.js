@@ -41,6 +41,7 @@ function App() {
   const [profileErrorStatus, setProfileErrorStatus] = React.useState(0);
   const [moviesList, setMoviesList] = React.useState([]);
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
+  const [filteredSavedMoviesList, setFilteredSavedMoviesList] = React.useState([]);
   const [isUpdateSucceed, setUpdateSucceed] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
@@ -65,6 +66,7 @@ function App() {
     if (loggedIn) {
       getMovies().then((movies) => {
         setSavedMoviesList(movies);
+        setFilteredSavedMoviesList(movies);
       });
     }
   }, [loggedIn]);
@@ -116,8 +118,8 @@ function App() {
     return isShort
       ? movies.filter(
           (movie) =>
-            (movie.nameRU.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52) ||
-            (movie.nameEN.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52)
+            (movie.nameRU.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 40) ||
+            (movie.nameEN.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 40)
         )
       : movies.filter(
           (movie) =>
@@ -157,7 +159,7 @@ function App() {
       setNotFound(true);
     }
 
-    setSavedMoviesList(filteredMovies);
+    setFilteredSavedMoviesList(filteredMovies);
   }
 
   function handleRegister(userInfo) {
@@ -307,6 +309,7 @@ function App() {
                   <ProtectedRoute
                     element={SavedMovies}
                     savedMoviesList={savedMoviesList}
+                    filteredSavedMoviesList={filteredSavedMoviesList}
                     isNotFound={isNotFound}
                     onMovieCardRemove={handleMovieCardRemove}
                     onShortFilmFilterChange={setShortFilmFilterOn}
