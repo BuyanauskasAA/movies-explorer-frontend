@@ -12,6 +12,7 @@ import Profile from './Profile/Profile';
 import PageNotFound from './PageNotFound/PageNotFound';
 import NavigationPopup from './NavigationPopup/NavigationPopup';
 import ProtectedRoute from './ProtectedRoute/ProtectedRoute';
+import AuthorizedRoute from './AuthorizedRoute/AuthorizedRoute';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import AuthContext from '../contexts/AuthContext';
 import { getMoviesList } from '../utils/MoviesApi';
@@ -339,7 +340,8 @@ function App() {
             <Route
               path="/signup"
               element={
-                <Register
+                <AuthorizedRoute
+                  element={Register}
                   onRegister={handleRegister}
                   isErrorVisible={isRegisterErrorVisible}
                   errorStatus={registerErrorStatus}
@@ -349,7 +351,8 @@ function App() {
             <Route
               path="/signin"
               element={
-                <Login
+                <AuthorizedRoute
+                  element={Login}
                   onLogin={handleLogin}
                   isErrorVisible={isLoginErrorVisible}
                   errorStatus={loginErrorStatus}
