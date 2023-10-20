@@ -112,25 +112,28 @@ function App() {
     setNavigationPopupOpen(false);
   }
 
-  function handleMoviesSearch(request, isShortFilm) {
+  function filterMovies(movies, request, isShort) {
+    return isShort
+      ? movies.filter(
+          (movie) =>
+            (movie.nameRU.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52) ||
+            (movie.nameEN.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52)
+        )
+      : movies.filter(
+          (movie) =>
+            movie.nameRU.toLowerCase().includes(request.toLowerCase()) ||
+            movie.nameEN.toLowerCase().includes(request.toLowerCase())
+        );
+  }
+
+  function handleMoviesSearch(request, isShort) {
     setNotFound(false);
     setLoading(true);
     localStorage.setItem('isNotFound', false);
     setMoviesList([]);
     getMoviesList()
       .then((movies) => {
-        const filteredMovies = isShortFilm
-          ? movies.filter(
-              (movie) =>
-                (movie.nameRU.toLowerCase().includes(request.toLowerCase()) &&
-                  movie.duration <= 52) ||
-                (movie.nameEN.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52)
-            )
-          : movies.filter(
-              (movie) =>
-                movie.nameRU.toLowerCase().includes(request.toLowerCase()) ||
-                movie.nameEN.toLowerCase().includes(request.toLowerCase())
-            );
+        const filteredMovies = filterMovies(movies, request, isShort);
 
         if (filteredMovies.length === 0) {
           setNotFound(true);
@@ -146,19 +149,9 @@ function App() {
       .finally(() => setLoading(false));
   }
 
-  function handleSavedMoviesSearch(request, isShortFilm) {
+  function handleSavedMoviesSearch(request, isShort) {
     setNotFound(false);
-    const filteredMovies = isShortFilm
-      ? savedMoviesList.filter(
-          (movie) =>
-            (movie.nameRU.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52) ||
-            (movie.nameEN.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52)
-        )
-      : savedMoviesList.filter(
-          (movie) =>
-            movie.nameRU.toLowerCase().includes(request.toLowerCase()) ||
-            movie.nameEN.toLowerCase().includes(request.toLowerCase())
-        );
+    const filteredMovies = filterMovies(savedMoviesList, request, isShort);
 
     if (filteredMovies.length === 0) {
       setNotFound(true);
