@@ -167,10 +167,13 @@ function App() {
 
   function handleRegister(userInfo) {
     signUp(userInfo)
-      .then((user) => {
-        setCurrentUser(user);
-        setLoggedIn(true);
-        navigate('/movies', { replace: true });
+      .then(() => {
+        const { email, password } = userInfo;
+        signIn({ email, password }).then((user) => {
+          setCurrentUser(user);
+          setLoggedIn(true);
+          navigate('/movies', { replace: true });
+        });
       })
       .catch((error) => {
         console.log(`Ошибка ${error}`);
