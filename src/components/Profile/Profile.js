@@ -57,6 +57,7 @@ function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus }) {
             className="profile__input"
             name="email"
             type="email"
+            pattern="[a-zA-Z0-9\.\-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
             required
             value={formValue.email}
             disabled={!isEditionEnable}
