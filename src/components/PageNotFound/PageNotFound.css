@@ -26,7 +26,7 @@
   font-size: 14px;
   line-height: 1.21;
   color: #4285f4;
-  text-decoration: none;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
