@@ -50,11 +50,13 @@ function App() {
   localStorage.setItem('lastRoute', pathname);
 
   React.useEffect(() => {
+    const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    setLoggedIn(isLoggedIn);
+    handleNavigate();
+
     getUser()
       .then((user) => {
         setCurrentUser(user);
-        setLoggedIn(true);
-        handleNavigate();
       })
       .catch((error) => console.log(`Ошибка ${error}`));
   }, []);
@@ -113,7 +115,6 @@ function App() {
   function handleMoviesSearch(request, isShortFilm) {
     setNotFound(false);
     setLoading(true);
-    setNotFound(false);
     localStorage.setItem('isNotFound', false);
     setMoviesList([]);
     getMoviesList()
@@ -191,6 +192,7 @@ function App() {
       .then((user) => {
         setCurrentUser(user);
         setLoggedIn(true);
+        localStorage.setItem('loggedIn', 'true');
         navigate('/movies', { replace: true });
       })
       .catch((error) => {
@@ -230,6 +232,7 @@ function App() {
         localStorage.removeItem('isShortFilmFilterOn');
         localStorage.removeItem('moviesList');
         localStorage.removeItem('lastRoute');
+        localStorage.removeItem('loggedIn');
         setLoggedIn(false);
         navigate('/', { replace: true });
       })
