@@ -40,6 +40,7 @@ function App() {
   const [isProfileErrorVisible, setProfileErrorVisible] = React.useState(false);
   const [profileErrorStatus, setProfileErrorStatus] = React.useState(0);
   const [moviesList, setMoviesList] = React.useState([]);
+  const [filteredMoviesList, setFilteredMoviesList] = React.useState([]);
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
   const [filteredSavedMoviesList, setFilteredSavedMoviesList] = React.useState([]);
   const [isUpdateSucceed, setUpdateSucceed] = React.useState(false);
@@ -54,20 +55,22 @@ function App() {
     const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
     setLoggedIn(isLoggedIn);
     handleNavigate();
-
-    getUser()
-      .then((user) => {
-        setCurrentUser(user);
-      })
-      .catch((error) => console.log(`Ошибка ${error}`));
   }, []);
 
   React.useEffect(() => {
     if (loggedIn) {
-      getMovies().then((movies) => {
-        setSavedMoviesList(movies);
-        setFilteredSavedMoviesList(movies);
-      });
+      getMovies()
+        .then((movies) => {
+          setSavedMoviesList(movies);
+          setFilteredSavedMoviesList(movies);
+        })
+        .catch((error) => console.log(`Ошибка ${error}`));
+
+      getUser()
+        .then((user) => {
+          setCurrentUser(user);
+        })
+        .catch((error) => console.log(`Ошибка ${error}`));
     }
   }, [loggedIn]);
 
@@ -86,20 +89,6 @@ function App() {
       document.removeEventListener('keydown', handleEscapeClose);
     };
   }, [isNavigationPopupOpen]);
-
-  React.useEffect(() => {
-    if (pathname === '/movies' && localStorage.getItem('isNotFound') !== null) {
-      setNotFound(JSON.parse(localStorage.getItem('isNotFound')));
-    }
-
-    if (pathname === '/movies' && localStorage.getItem('moviesList') !== null) {
-      setMoviesList(JSON.parse(localStorage.getItem('moviesList')));
-    }
-
-    if (pathname === '/movies' && localStorage.getItem('isShortFilmFilterOn') !== null) {
-      setShortFilmFilterOn(JSON.parse(localStorage.getItem('isShortFilmFilterOn')));
-    }
-  }, []);
 
   function handleNavigate() {
     localStorage.setItem('lastRoute', pathname);
@@ -132,9 +121,28 @@ function App() {
     setNotFound(false);
     setLoading(true);
     localStorage.setItem('isNotFound', false);
-    setMoviesList([]);
+    setFilteredMoviesList([]);
+    const filteredMovies = filterMovies(moviesList, request, isShort);
+
+    if (filteredMovies.length === 0) {
+      setNotFound(true);
+      localStorage.setItem('isNotFound', true);
+    }
+
+    setFilteredMoviesList(filteredMovies);
+    localStorage.setItem('moviesList', JSON.stringify(filteredMovies));
+    setLoading(false);
+  }
+
+  function handleMoviesSearchApi(request, isShort) {
+    setNotFound(false);
+    setLoading(true);
+    localStorage.setItem('isNotFound', false);
+    setFilteredMoviesList([]);
     getMoviesList()
       .then((movies) => {
+        setMoviesList(movies);
+
         const filteredMovies = filterMovies(movies, request, isShort);
 
         if (filteredMovies.length === 0) {
@@ -142,11 +150,15 @@ function App() {
           localStorage.setItem('isNotFound', true);
         }
 
-        setMoviesList(filteredMovies);
+        setFilteredMoviesList(filteredMovies);
         localStorage.setItem('moviesList', JSON.stringify(filteredMovies));
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(`Ошибка ${error}`);
         setSearchErrorVisible(true);
+        setTimeout(() => {
+          setSearchErrorVisible(false);
+        }, 3000);
       })
       .finally(() => setLoading(false));
   }
@@ -240,6 +252,7 @@ function App() {
     saveMovie(movieInfo)
       .then((movie) => {
         setSavedMoviesList([...savedMoviesList, movie]);
+        setFilteredSavedMoviesList([...filteredSavedMoviesList, movie]);
       })
       .catch((error) => {
         console.log(`Ошибка ${error}`);
@@ -256,8 +269,10 @@ function App() {
     }
     deleteMovie(requestId)
       .then((movie) => {
-        const filteredMovies = savedMoviesList.filter((item) => item._id !== movie._id);
-        setSavedMoviesList(filteredMovies);
+        const movies = savedMoviesList.filter((item) => item._id !== movie._id);
+        const filteredMovies = filteredSavedMoviesList.filter((item) => item._id !== movie._id);
+        setSavedMoviesList(movies);
+        setFilteredSavedMoviesList(filteredMovies);
       })
       .catch((error) => {
         console.log(`Ошибка ${error}`);
@@ -288,14 +303,17 @@ function App() {
                     element={Movies}
                     onShortFilmFilterChange={setShortFilmFilterOn}
                     isShortFilmFilterOn={isShortFilmFilterOn}
-                    onSearchFormSubmit={handleMoviesSearch}
-                    moviesList={moviesList}
+                    onMoviesSearch={handleMoviesSearch}
+                    moviesList={filteredMoviesList}
                     savedMoviesList={savedMoviesList}
                     isLoading={isLoading}
                     isNotFound={isNotFound}
                     isErrorVisible={isSearchErrorVisible}
                     onMovieCardSave={handleMovieCardSave}
                     onMovieCardRemove={handleMovieCardRemove}
+                    onMoviesSearchApi={handleMoviesSearchApi}
+                    setNotFound={setNotFound}
+                    setFilteredMoviesList={setFilteredMoviesList}
                   />
                   <ProtectedRoute element={Footer} />
                 </>

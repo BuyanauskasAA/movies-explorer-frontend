@@ -16,7 +16,7 @@ function SavedMovies({
       <SearchForm
         isShortFilmFilterOn={isShortFilmFilterOn}
         onFilter={onShortFilmFilterChange}
-        onSearchFormSubmit={onSearchFormSubmit}
+        onMoviesSearch={onSearchFormSubmit}
       />
       <SavedMoviesList
         isShortFilmFilterOn={isShortFilmFilterOn}

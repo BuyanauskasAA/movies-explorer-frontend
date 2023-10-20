@@ -4,7 +4,7 @@ import './SearchForm.css';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import Error from '../Error/Error';
 
-function SearchForm({ isShortFilmFilterOn, onFilter, onSearchFormSubmit }) {
+function SearchForm({ isShortFilmFilterOn, onFilter, onMoviesSearch, onMoviesSearchApi }) {
   const { pathname } = useLocation();
 
   React.useEffect(() => {
@@ -15,9 +15,11 @@ function SearchForm({ isShortFilmFilterOn, onFilter, onSearchFormSubmit }) {
 
   const inputValue = React.useRef();
   const [isInputValid, setInputValid] = React.useState(true);
+  const [submitCount, setSubmitCount] = React.useState(0);
 
   function handleInputCheck() {
     setInputValid(inputValue.current.checkValidity());
+    setSubmitCount(submitCount + 1);
   }
 
   function onSubmit(event) {
@@ -25,8 +27,14 @@ function SearchForm({ isShortFilmFilterOn, onFilter, onSearchFormSubmit }) {
     if (isInputValid) {
       if (pathname === '/movies') {
         localStorage.setItem('searchInputValue', inputValue.current.value);
+        if (submitCount > 1) {
+          onMoviesSearch(inputValue.current.value, isShortFilmFilterOn);
+        } else {
+          onMoviesSearchApi(inputValue.current.value, isShortFilmFilterOn);
+        }
+      } else {
+        onMoviesSearch(inputValue.current.value, isShortFilmFilterOn);
       }
-      onSearchFormSubmit(inputValue.current.value, isShortFilmFilterOn);
     }
   }
 

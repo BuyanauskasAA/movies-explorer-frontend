@@ -6,7 +6,6 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 function Movies({
   onShortFilmFilterChange,
   isShortFilmFilterOn,
-  onSearchFormSubmit,
   moviesList,
   savedMoviesList,
   isLoading,
@@ -14,13 +13,32 @@ function Movies({
   isErrorVisible,
   onMovieCardSave,
   onMovieCardRemove,
+  onMoviesSearch,
+  onMoviesSearchApi,
+  setNotFound,
+  setFilteredMoviesList,
 }) {
+  React.useEffect(() => {
+    if (localStorage.getItem('isNotFound') !== null) {
+      setNotFound(JSON.parse(localStorage.getItem('isNotFound')));
+    }
+
+    if (localStorage.getItem('moviesList') !== null) {
+      setFilteredMoviesList(JSON.parse(localStorage.getItem('moviesList')));
+    }
+
+    if (localStorage.getItem('isShortFilmFilterOn') !== null) {
+      onShortFilmFilterChange(JSON.parse(localStorage.getItem('isShortFilmFilterOn')));
+    }
+  }, []);
+
   return (
     <main className="movies">
       <SearchForm
         isShortFilmFilterOn={isShortFilmFilterOn}
         onFilter={onShortFilmFilterChange}
-        onSearchFormSubmit={onSearchFormSubmit}
+        onMoviesSearch={onMoviesSearch}
+        onMoviesSearchApi={onMoviesSearchApi}
       />
       <MoviesCardList
         cards={moviesList}

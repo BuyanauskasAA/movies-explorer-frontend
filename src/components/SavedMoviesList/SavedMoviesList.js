@@ -19,7 +19,7 @@ function SavedMoviesList({ isNotFound, cards, onMovieCardRemove, isShortFilmFilt
 
   return (
     <section className="saved-movies-list">
-      {isNotFound && <h2 className="saved-movies-list__not-found">Ничего не найдено</h2>}
+      {cardsList.length === 0 && <h2 className="saved-movies-list__not-found">Ничего не найдено</h2>}
       {cardsList.length > 0 && <ul className="saved-movies-list__container">{cardsList}</ul>}
     </section>
   );
