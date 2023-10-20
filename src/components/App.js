@@ -109,61 +109,60 @@ function App() {
     setNavigationPopupOpen(false);
   }
 
-  function handleSearchFormSubmit(request, isShortFilm) {
+  function handleMoviesSearch(request, isShortFilm) {
     setNotFound(false);
-    if (pathname === '/movies') {
-      setLoading(true);
-      setNotFound(false);
-      localStorage.setItem('isNotFound', false);
-      setMoviesList([]);
-      getMoviesList()
-        .then((movies) => {
-          const filteredMovies = isShortFilm
-            ? movies.filter(
-                (movie) =>
-                  (movie.nameRU.toLowerCase().includes(request.toLowerCase()) &&
-                    movie.duration <= 52) ||
-                  (movie.nameEN.toLowerCase().includes(request.toLowerCase()) &&
-                    movie.duration <= 52)
-              )
-            : movies.filter(
-                (movie) =>
-                  movie.nameRU.toLowerCase().includes(request.toLowerCase()) ||
-                  movie.nameEN.toLowerCase().includes(request.toLowerCase())
-              );
+    setLoading(true);
+    setNotFound(false);
+    localStorage.setItem('isNotFound', false);
+    setMoviesList([]);
+    getMoviesList()
+      .then((movies) => {
+        const filteredMovies = isShortFilm
+          ? movies.filter(
+              (movie) =>
+                (movie.nameRU.toLowerCase().includes(request.toLowerCase()) &&
+                  movie.duration <= 52) ||
+                (movie.nameEN.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52)
+            )
+          : movies.filter(
+              (movie) =>
+                movie.nameRU.toLowerCase().includes(request.toLowerCase()) ||
+                movie.nameEN.toLowerCase().includes(request.toLowerCase())
+            );
 
-          if (filteredMovies.length === 0) {
-            setNotFound(true);
-            localStorage.setItem('isNotFound', true);
-          }
+        if (filteredMovies.length === 0) {
+          setNotFound(true);
+          localStorage.setItem('isNotFound', true);
+        }
 
-          setMoviesList(filteredMovies);
-          localStorage.setItem('moviesList', JSON.stringify(filteredMovies));
-        })
-        .catch(() => {
-          setSearchErrorVisible(true);
-        })
-        .finally(() => setLoading(false));
-    } else {
-      const filteredMovies = isShortFilm
-        ? savedMoviesList.filter(
-            (movie) =>
-              (movie.nameRU.toLowerCase().includes(request.toLowerCase()) &&
-                movie.duration <= 52) ||
-              (movie.nameEN.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52)
-          )
-        : savedMoviesList.filter(
-            (movie) =>
-              movie.nameRU.toLowerCase().includes(request.toLowerCase()) ||
-              movie.nameEN.toLowerCase().includes(request.toLowerCase())
-          );
+        setMoviesList(filteredMovies);
+        localStorage.setItem('moviesList', JSON.stringify(filteredMovies));
+      })
+      .catch(() => {
+        setSearchErrorVisible(true);
+      })
+      .finally(() => setLoading(false));
+  }
 
-      if (filteredMovies.length === 0) {
-        setNotFound(true);
-      }
+  function handleSavedMoviesSearch(request, isShortFilm) {
+    setNotFound(false);
+    const filteredMovies = isShortFilm
+      ? savedMoviesList.filter(
+          (movie) =>
+            (movie.nameRU.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52) ||
+            (movie.nameEN.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 52)
+        )
+      : savedMoviesList.filter(
+          (movie) =>
+            movie.nameRU.toLowerCase().includes(request.toLowerCase()) ||
+            movie.nameEN.toLowerCase().includes(request.toLowerCase())
+        );
 
-      setSavedMoviesList(filteredMovies);
+    if (filteredMovies.length === 0) {
+      setNotFound(true);
     }
+
+    setSavedMoviesList(filteredMovies);
   }
 
   function handleRegister(userInfo) {
@@ -230,7 +229,8 @@ function App() {
         localStorage.removeItem('isShortFilmFilterOn');
         localStorage.removeItem('moviesList');
         localStorage.removeItem('lastRoute');
-        navigate('/signin', { replace: true });
+        setLoggedIn(false);
+        navigate('/', { replace: true });
       })
       .catch((error) => {
         console.log(`Ошибка ${error}`);
@@ -289,7 +289,7 @@ function App() {
                     element={Movies}
                     onShortFilmFilterChange={setShortFilmFilterOn}
                     isShortFilmFilterOn={isShortFilmFilterOn}
-                    onSearchFormSubmit={handleSearchFormSubmit}
+                    onSearchFormSubmit={handleMoviesSearch}
                     moviesList={moviesList}
                     savedMoviesList={savedMoviesList}
                     isLoading={isLoading}
@@ -314,7 +314,7 @@ function App() {
                     onMovieCardRemove={handleMovieCardRemove}
                     onShortFilmFilterChange={setShortFilmFilterOn}
                     isShortFilmFilterOn={isShortFilmFilterOn}
-                    onSearchFormSubmit={handleSearchFormSubmit}
+                    onSearchFormSubmit={handleSavedMoviesSearch}
                   />
                   <ProtectedRoute element={Footer} />
                 </>
