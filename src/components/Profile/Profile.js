@@ -2,7 +2,7 @@ import React from 'react';
 import './Profile.css';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
-function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus }) {
+function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus, isUpdateSucceed }) {
   const user = React.useContext(CurrentUserContext);
 
   React.useEffect(() => {
@@ -64,8 +64,13 @@ function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus }) {
           />
         </label>
         <span className="profile-input-error">{formErrors.email}</span>
+        <span className={`profile-form-update ${isUpdateSucceed ? 'profile-form-update_active' : ''}`}>
+          Данные пользователя успешно обновлены
+        </span>
         <span className={`profile-form-error ${isErrorVisible ? 'profile-form-error_active' : ''}`}>
-          asdasdasdas
+          {errorStatus === 409
+            ? 'Пользователь с таким email уже существует'
+            : 'При обновлении профиля произошла ошибка'}
         </span>
         {isEditionEnable && (
           <button

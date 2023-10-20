@@ -40,6 +40,7 @@ function App() {
   const [profileErrorStatus, setProfileErrorStatus] = React.useState(0);
   const [moviesList, setMoviesList] = React.useState([]);
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
+  const [isUpdateSucceed, setUpdateSucceed] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -179,6 +180,9 @@ function App() {
         console.log(`Ошибка ${error}`);
         setRegisterErrorStatus(error);
         setRegisterErrorVisible(true);
+        setTimeout(() => {
+          setRegisterErrorVisible(false);
+        }, 3000);
       });
   }
 
@@ -193,6 +197,9 @@ function App() {
         console.log(`Ошибка ${error}`);
         setLoginErrorStatus(error);
         setLoginErrorVisible(true);
+        setTimeout(() => {
+          setLoginErrorVisible(false);
+        }, 3000);
       });
   }
 
@@ -200,11 +207,18 @@ function App() {
     updateUser(userInfo)
       .then((user) => {
         setCurrentUser(user);
+        setUpdateSucceed(true);
+        setTimeout(() => {
+          setUpdateSucceed(false);
+        }, 3000);
       })
       .catch((error) => {
         console.log(`Ошибка ${error}`);
         setProfileErrorStatus(error);
         setProfileErrorVisible(true);
+        setTimeout(() => {
+          setProfileErrorVisible(false);
+        }, 3000);
       });
   }
 
@@ -317,6 +331,7 @@ function App() {
                     onUpdate={handleUpdateuser}
                     isErrorVisible={isProfileErrorVisible}
                     errorStatus={profileErrorStatus}
+                    isUpdateSucceed={isUpdateSucceed}
                   />
                 </>
               }
