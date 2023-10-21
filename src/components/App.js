@@ -30,6 +30,7 @@ import {
 function App() {
   const [isNavigationPopupOpen, setNavigationPopupOpen] = React.useState(false);
   const [isShortFilmFilterOn, setShortFilmFilterOn] = React.useState(false);
+  const [isSavedShortFilmFilterOn, setSavedShortFilmFilterOn] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
   const [isNotFound, setNotFound] = React.useState(false);
   const [isSearchErrorVisible, setSearchErrorVisible] = React.useState(false);
@@ -332,8 +333,8 @@ function App() {
                     filteredSavedMoviesList={filteredSavedMoviesList}
                     isNotFound={isNotFound}
                     onMovieCardRemove={handleMovieCardRemove}
-                    onShortFilmFilterChange={setShortFilmFilterOn}
-                    isShortFilmFilterOn={isShortFilmFilterOn}
+                    onShortFilmFilterChange={setSavedShortFilmFilterOn}
+                    isShortFilmFilterOn={isSavedShortFilmFilterOn}
                     onSearchFormSubmit={handleSavedMoviesSearch}
                   />
                   <ProtectedRoute element={Footer} />
