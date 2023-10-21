@@ -46,7 +46,7 @@ function App() {
   const [filteredSavedMoviesList, setFilteredSavedMoviesList] = React.useState([]);
   const [isUpdateSucceed, setUpdateSucceed] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
