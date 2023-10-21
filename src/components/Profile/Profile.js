@@ -14,7 +14,7 @@ function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus, isUpdateSucc
 
   React.useEffect(() => {
     setFormValue({ name: user.name, email: user.email });
-  }, [user, isErrorVisible]);
+  }, [user, isErrorVisible, isEditionEnable]);
 
   React.useEffect(() => {
     handleFormValueChanged();
