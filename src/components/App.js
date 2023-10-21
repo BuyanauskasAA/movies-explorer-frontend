@@ -178,7 +178,7 @@ function App() {
     signUp(userInfo)
       .then(() => {
         const { email, password } = userInfo;
-        signIn({ email, password }).then((user) => {
+        return signIn({ email, password }).then((user) => {
           setCurrentUser(user);
           setLoggedIn(true);
           navigate('/movies', { replace: true });

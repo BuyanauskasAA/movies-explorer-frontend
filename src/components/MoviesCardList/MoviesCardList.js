@@ -101,15 +101,15 @@ function MoviesCardList({
         isActive={isErrorVisible}
         text="Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
       />
-      <button
-        onClick={handleShowMore}
-        className={`movies-card-list__load-more-button ${
-          isButtonVisible ? 'movies-card-list__load-more-button_active' : ''
-        }`}
-        type="button"
-      >
-        Ещё
-      </button>
+      {isButtonVisible && (
+        <button
+          onClick={handleShowMore}
+          className="movies-card-list__load-more-button"
+          type="button"
+        >
+          Ещё
+        </button>
+      )}
     </section>
   );
 }

@@ -41,6 +41,8 @@ function Register({ onRegister, isErrorVisible, errorStatus }) {
             name="name"
             type="text"
             required
+            minLength={2}
+            maxLength={30}
             autoComplete="on"
             pattern="[a-zA-Zа-яА-ЯёЁ\s\-]+"
           />
