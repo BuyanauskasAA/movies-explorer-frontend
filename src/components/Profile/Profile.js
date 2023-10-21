@@ -88,7 +88,7 @@ function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus, isUpdateSucc
             className="profile__input"
             name="email"
             type="email"
-            pattern="[a-zA-Z0-9\.\-]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"
+            pattern="[a-zA-Z0-9\.\-_]+@[a-zA-Z0-9\.\-_]+\.[a-zA-Z0-9\-_]+"
             required
             autoComplete="on"
             value={formValue.email}
