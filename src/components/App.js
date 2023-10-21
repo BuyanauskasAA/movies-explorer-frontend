@@ -33,6 +33,7 @@ function App() {
   const [isSavedShortFilmFilterOn, setSavedShortFilmFilterOn] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
   const [isNotFound, setNotFound] = React.useState(false);
+  const [isNotFoundSavedMovies, setNotFoundSavedMovies] = React.useState(false);
   const [isSearchErrorVisible, setSearchErrorVisible] = React.useState(false);
   const [isRegisterErrorVisible, setRegisterErrorVisible] = React.useState(false);
   const [registerErrorStatus, setRegisterErrorStatus] = React.useState(0);
@@ -165,11 +166,11 @@ function App() {
   }
 
   function handleSavedMoviesSearch(request, isShort) {
-    setNotFound(false);
+    setNotFoundSavedMovies(false);
     const filteredMovies = filterMovies(savedMoviesList, request, isShort);
 
     if (filteredMovies.length === 0) {
-      setNotFound(true);
+      setNotFoundSavedMovies(true);
     }
 
     setFilteredSavedMoviesList(filteredMovies);
@@ -337,7 +338,7 @@ function App() {
                     element={SavedMovies}
                     savedMoviesList={savedMoviesList}
                     filteredSavedMoviesList={filteredSavedMoviesList}
-                    isNotFound={isNotFound}
+                    isNotFound={isNotFoundSavedMovies}
                     onMovieCardRemove={handleMovieCardRemove}
                     onShortFilmFilterChange={setSavedShortFilmFilterOn}
                     isShortFilmFilterOn={isSavedShortFilmFilterOn}
