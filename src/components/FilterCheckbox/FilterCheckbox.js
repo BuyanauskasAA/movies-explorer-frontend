@@ -1,12 +1,16 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import './FilterCheckbox.css';
 
 function FilterCheckbox({ onFilterChange, isFilterOn }) {
   const filter = React.useRef();
+  const { pathname } = useLocation();
 
   function handleFilterChange() {
     onFilterChange(filter.current.checked);
-    localStorage.setItem('isShortFilmFilterOn', filter.current.checked);
+    if (pathname === '/movies') {
+      localStorage.setItem('isShortFilmFilterOn', filter.current.checked);
+    }
   }
 
   return (
