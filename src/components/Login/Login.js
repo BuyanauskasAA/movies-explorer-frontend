@@ -8,6 +8,7 @@ function Login({ onLogin, isErrorVisible, errorStatus }) {
   const [formValue, setFormValue] = React.useState({});
   const [formErrors, setFormErrors] = React.useState({ email: '', password: '' });
   const [isFormValid, setFormValid] = React.useState(false);
+  const formSubmitButton = React.useRef();
 
   function handleChange(event) {
     const target = event.target;
@@ -20,7 +21,7 @@ function Login({ onLogin, isErrorVisible, errorStatus }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    onLogin(formValue);
+    onLogin(formValue, formSubmitButton.current);
   }
 
   let errorText;
@@ -70,6 +71,7 @@ function Login({ onLogin, isErrorVisible, errorStatus }) {
         </div>
         <Error isActive={isErrorVisible} text={errorText} />
         <button
+          ref={formSubmitButton}
           onClick={handleSubmit}
           className={`login-submit-button ${isFormValid ? '' : 'login-submit-button_disabled'}`}
           type="submit"

@@ -9,6 +9,7 @@ function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus, isUpdateSucc
   const [formErrors, setFormErrors] = React.useState({ name: '', email: '' });
   const [isFormValid, setFormValid] = React.useState(false);
   const [isFormValueChanged, setFormValuesChanged] = React.useState(false);
+  const formSubmitButton = React.useRef();
 
   React.useEffect(() => {
     setFormValue({ name: user.name, email: user.email });
@@ -45,7 +46,7 @@ function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus, isUpdateSucc
   function handleSubmit(event) {
     event.preventDefault();
 
-    onUpdate(formValue);
+    onUpdate(formValue, formSubmitButton.current);
     setEditionEnable(false);
   }
 
@@ -107,6 +108,7 @@ function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus, isUpdateSucc
         </span>
         {isEditionEnable && (
           <button
+            ref={formSubmitButton}
             onClick={handleSubmit}
             className={`profile__submit-button ${
               isFormValid && isFormValueChanged ? '' : 'profile__submit-button_disabled'

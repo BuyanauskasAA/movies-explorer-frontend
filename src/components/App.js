@@ -175,7 +175,8 @@ function App() {
     setFilteredSavedMoviesList(filteredMovies);
   }
 
-  function handleRegister(userInfo) {
+  function handleRegister(userInfo, form) {
+    form.disabled = true;
     signUp(userInfo)
       .then(() => {
         const { email, password } = userInfo;
@@ -192,10 +193,12 @@ function App() {
         setTimeout(() => {
           setRegisterErrorVisible(false);
         }, 3000);
-      });
+      })
+      .finally(() => (form.disabled = false));
   }
 
-  function handleLogin(userInfo) {
+  function handleLogin(userInfo, form) {
+    form.disabled = true;
     signIn(userInfo)
       .then((user) => {
         setCurrentUser(user);
@@ -210,10 +213,12 @@ function App() {
         setTimeout(() => {
           setLoginErrorVisible(false);
         }, 3000);
-      });
+      })
+      .finally(() => (form.disabled = false));
   }
 
-  function handleUpdateuser(userInfo) {
+  function handleUpdateuser(userInfo, form) {
+    form.disabled = true;
     updateUser(userInfo)
       .then((user) => {
         setCurrentUser(user);
@@ -229,7 +234,8 @@ function App() {
         setTimeout(() => {
           setProfileErrorVisible(false);
         }, 3000);
-      });
+      })
+      .finally(() => (form.disabled = false));
   }
 
   function handleLogout() {

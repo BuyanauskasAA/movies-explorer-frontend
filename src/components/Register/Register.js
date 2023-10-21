@@ -8,6 +8,7 @@ function Register({ onRegister, isErrorVisible, errorStatus }) {
   const [formValue, setFormValue] = React.useState({});
   const [formErrors, setFormErrors] = React.useState({ name: '', email: '', password: '' });
   const [isFormValid, setFormValid] = React.useState(false);
+  const formSubmitButton = React.useRef();
 
   function handleChange(event) {
     const target = event.target;
@@ -20,7 +21,7 @@ function Register({ onRegister, isErrorVisible, errorStatus }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    onRegister(formValue);
+    onRegister(formValue, formSubmitButton.current);
   }
 
   return (
@@ -89,6 +90,7 @@ function Register({ onRegister, isErrorVisible, errorStatus }) {
           }
         />
         <button
+          ref={formSubmitButton}
           onClick={handleSubmit}
           className={`register-submit-button ${
             isFormValid ? '' : 'register-submit-button_disabled'
