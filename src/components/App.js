@@ -241,6 +241,8 @@ function App() {
         localStorage.removeItem('lastRoute');
         localStorage.removeItem('loggedIn');
         setLoggedIn(false);
+        setFilteredSavedMoviesList([]);
+        setFilteredMoviesList([]);
         navigate('/', { replace: true });
       })
       .catch((error) => {
