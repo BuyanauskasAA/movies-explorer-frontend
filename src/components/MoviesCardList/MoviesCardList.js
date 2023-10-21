@@ -3,6 +3,7 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import Error from '../Error/Error';
+import { getMoviesError } from '../../utils/error-messages-handler';
 
 function MoviesCardList({
   cards,
@@ -99,7 +100,7 @@ function MoviesCardList({
       {cardsList.length > 0 && <ul className="movies-card-list__container">{cardsList}</ul>}
       <Error
         isActive={isErrorVisible}
-        text="Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
+        text={getMoviesError}
       />
       {isButtonVisible && (
         <button

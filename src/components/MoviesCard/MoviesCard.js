@@ -1,12 +1,13 @@
 import React from 'react';
 import './MoviesCard.css';
 import { useLocation } from 'react-router-dom';
+import { baseUrl } from '../../utils/MoviesApi';
 
 function MoviesCard({ card, onMovieCardSave, onMovieCardRemove }) {
   const { pathname } = useLocation();
   const formatTime = (minutes) => `${Math.floor(minutes / 60)}ч ${minutes % 60}м`;
-  const baseUrl = pathname === '/movies' ? 'https://api.nomoreparties.co' : '';
-  const imageSrc = pathname === '/movies' ? `${baseUrl}${card.image.url}` : card.image;
+  const url = pathname === '/movies' ? baseUrl : '';
+  const imageSrc = pathname === '/movies' ? `${url}${card.image.url}` : card.image;
   const cardId = pathname === '/movies' ? card.id : card._id;
 
   function handleSaveCard() {
@@ -16,9 +17,9 @@ function MoviesCard({ card, onMovieCardSave, onMovieCardRemove }) {
       duration: card.duration,
       year: card.year,
       description: card.description,
-      image: `${baseUrl}${card.image.url}`,
+      image: `${url}${card.image.url}`,
       trailerLink: card.trailerLink,
-      thumbnail: `${baseUrl}${card.image.formats.thumbnail.url}`,
+      thumbnail: `${url}${card.image.formats.thumbnail.url}`,
       movieId: card.id,
       nameRU: card.nameRU,
       nameEN: card.nameEN,

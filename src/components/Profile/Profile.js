@@ -1,6 +1,7 @@
 import React from 'react';
 import './Profile.css';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { getUserUpdateErrorMessage } from '../../utils/error-messages-handler';
 
 function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus, isUpdateSucceed }) {
   const user = React.useContext(CurrentUserContext);
@@ -13,7 +14,7 @@ function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus, isUpdateSucc
 
   React.useEffect(() => {
     setFormValue({ name: user.name, email: user.email });
-  }, [user]);
+  }, [user, isErrorVisible]);
 
   React.useEffect(() => {
     handleFormValueChanged();
@@ -102,9 +103,7 @@ function Profile({ onLogout, onUpdate, isErrorVisible, errorStatus, isUpdateSucc
           Данные пользователя успешно обновлены
         </span>
         <span className={`profile-form-error ${isErrorVisible ? 'profile-form-error_active' : ''}`}>
-          {errorStatus === 409
-            ? 'Пользователь с таким email уже существует'
-            : 'При обновлении профиля произошла ошибка'}
+          {getUserUpdateErrorMessage(errorStatus)}
         </span>
         {isEditionEnable && (
           <button

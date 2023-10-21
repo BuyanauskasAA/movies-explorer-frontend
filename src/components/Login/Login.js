@@ -3,6 +3,7 @@ import './Login.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import Error from '../Error/Error';
+import { getLoginErrorMessage } from '../../utils/error-messages-handler';
 
 function Login({ onLogin, isErrorVisible, errorStatus }) {
   const [formValue, setFormValue] = React.useState({});
@@ -22,16 +23,6 @@ function Login({ onLogin, isErrorVisible, errorStatus }) {
     event.preventDefault();
 
     onLogin(formValue, formSubmitButton.current);
-  }
-
-  let errorText;
-
-  if (errorStatus === 401) {
-    errorText = 'Вы ввели неправильный логин или пароль.';
-  } else if (errorStatus === 400) {
-    errorText = 'При авторизации произошла ошибка. Токен не передан или передан не в том формате.';
-  } else {
-    errorText = 'При авторизации произошла ошибка. Переданный токен некорректен';
   }
 
   return (
@@ -69,7 +60,7 @@ function Login({ onLogin, isErrorVisible, errorStatus }) {
           />
           <span className="login-input-error">{formErrors.password}</span>
         </div>
-        <Error isActive={isErrorVisible} text={errorText} />
+        <Error isActive={isErrorVisible} text={getLoginErrorMessage(errorStatus)} />
         <button
           ref={formSubmitButton}
           onClick={handleSubmit}

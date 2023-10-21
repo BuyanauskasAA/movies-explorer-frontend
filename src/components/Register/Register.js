@@ -3,6 +3,7 @@ import './Register.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
 import Error from '../Error/Error';
+import { getRegisterErrorMessage } from '../../utils/error-messages-handler';
 
 function Register({ onRegister, isErrorVisible, errorStatus }) {
   const [formValue, setFormValue] = React.useState({});
@@ -81,14 +82,7 @@ function Register({ onRegister, isErrorVisible, errorStatus }) {
           />
           <span className="register-input-error">{formErrors.password}</span>
         </div>
-        <Error
-          isActive={isErrorVisible}
-          text={
-            errorStatus === 409
-              ? 'Пользователь с таким email уже существует.'
-              : 'При регистрации пользователя произошла ошибка.'
-          }
-        />
+        <Error isActive={isErrorVisible} text={getRegisterErrorMessage(errorStatus)} />
         <button
           ref={formSubmitButton}
           onClick={handleSubmit}
