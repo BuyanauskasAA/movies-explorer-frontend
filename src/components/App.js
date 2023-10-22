@@ -183,6 +183,7 @@ function App() {
         const { email, password } = userInfo;
         return signIn({ email, password }).then((user) => {
           setCurrentUser(user);
+          localStorage.setItem('loggedIn', 'true');
           setLoggedIn(true);
           navigate('/movies', { replace: true });
         });
