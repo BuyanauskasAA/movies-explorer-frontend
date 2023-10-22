@@ -1,11 +1,12 @@
 import React from 'react';
 import './SavedMoviesList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import { shortFilmDuration } from '../../utils/short-film-duration';
 
 function SavedMoviesList({ isNotFound, cards, onMovieCardRemove, isShortFilmFilterOn }) {
   const cardsList = isShortFilmFilterOn
     ? cards
-        .filter((card) => card.duration <= 40)
+        .filter((card) => card.duration <= shortFilmDuration)
         .map((card) => (
           <li key={card._id}>
             <MoviesCard card={card} onMovieCardRemove={onMovieCardRemove} />

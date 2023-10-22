@@ -26,6 +26,7 @@ import {
   getMovies,
   deleteMovie,
 } from '../utils/MainApi';
+import { shortFilmDuration } from '../utils/short-film-duration';
 
 function App() {
   const [isNavigationPopupOpen, setNavigationPopupOpen] = React.useState(false);
@@ -109,8 +110,10 @@ function App() {
     return isShort
       ? movies.filter(
           (movie) =>
-            (movie.nameRU.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 40) ||
-            (movie.nameEN.toLowerCase().includes(request.toLowerCase()) && movie.duration <= 40)
+            (movie.nameRU.toLowerCase().includes(request.toLowerCase()) &&
+              movie.duration <= shortFilmDuration) ||
+            (movie.nameEN.toLowerCase().includes(request.toLowerCase()) &&
+              movie.duration <= shortFilmDuration)
         )
       : movies.filter(
           (movie) =>

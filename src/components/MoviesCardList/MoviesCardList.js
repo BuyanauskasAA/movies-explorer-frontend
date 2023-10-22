@@ -4,6 +4,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 import Preloader from '../Preloader/Preloader';
 import Error from '../Error/Error';
 import { getMoviesError } from '../../utils/error-messages-handler';
+import { shortFilmDuration } from '../../utils/short-film-duration';
 
 function MoviesCardList({
   cards,
@@ -50,7 +51,7 @@ function MoviesCardList({
 
   const cardsList = isShortFilmFilterOn
     ? cards
-        .filter((card) => card.duration <= 40)
+        .filter((card) => card.duration <= shortFilmDuration)
         .slice(0, initialCardsCount)
         .map((card) => {
           card.isLiked = likedCards.includes(card.id);
@@ -80,7 +81,7 @@ function MoviesCardList({
   let isButtonVisible;
 
   if (isShortFilmFilterOn) {
-    if (cards.filter((card) => card.duration <= 40).length > initialCardsCount) {
+    if (cards.filter((card) => card.duration <= shortFilmDuration).length > initialCardsCount) {
       isButtonVisible = true;
     } else {
       isButtonVisible = false;
@@ -98,10 +99,7 @@ function MoviesCardList({
       {isNotFound && <h2 className="movies-card-list__not-found">Ничего не найдено</h2>}
       {isLoading && <Preloader />}
       {cardsList.length > 0 && <ul className="movies-card-list__container">{cardsList}</ul>}
-      <Error
-        isActive={isErrorVisible}
-        text={getMoviesError}
-      />
+      <Error isActive={isErrorVisible} text={getMoviesError} />
       {isButtonVisible && (
         <button
           onClick={handleShowMore}
