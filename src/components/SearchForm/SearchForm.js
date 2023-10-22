@@ -28,12 +28,12 @@ function SearchForm({ isShortFilmFilterOn, onFilter, onMoviesSearch, onMoviesSea
       if (pathname === '/movies') {
         localStorage.setItem('searchInputValue', inputValue.current.value);
         if (submitCount > 1) {
-          onMoviesSearch(inputValue.current.value, isShortFilmFilterOn);
+          onMoviesSearch(inputValue.current.value);
         } else {
-          onMoviesSearchApi(inputValue.current.value, isShortFilmFilterOn);
+          onMoviesSearchApi(inputValue.current.value);
         }
       } else {
-        onMoviesSearch(inputValue.current.value, isShortFilmFilterOn);
+        onMoviesSearch(inputValue.current.value);
       }
     }
   }

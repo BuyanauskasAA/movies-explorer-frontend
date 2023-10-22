@@ -26,7 +26,6 @@ import {
   getMovies,
   deleteMovie,
 } from '../utils/MainApi';
-import { shortFilmDuration } from '../utils/short-film-duration';
 
 function App() {
   const [isNavigationPopupOpen, setNavigationPopupOpen] = React.useState(false);
@@ -106,28 +105,20 @@ function App() {
     setNavigationPopupOpen(false);
   }
 
-  function filterMovies(movies, request, isShort) {
-    return isShort
-      ? movies.filter(
-          (movie) =>
-            (movie.nameRU.toLowerCase().includes(request.toLowerCase()) &&
-              movie.duration <= shortFilmDuration) ||
-            (movie.nameEN.toLowerCase().includes(request.toLowerCase()) &&
-              movie.duration <= shortFilmDuration)
-        )
-      : movies.filter(
-          (movie) =>
-            movie.nameRU.toLowerCase().includes(request.toLowerCase()) ||
-            movie.nameEN.toLowerCase().includes(request.toLowerCase())
-        );
+  function filterMovies(movies, request) {
+    return movies.filter(
+      (movie) =>
+        movie.nameRU.toLowerCase().includes(request.toLowerCase()) ||
+        movie.nameEN.toLowerCase().includes(request.toLowerCase())
+    );
   }
 
-  function handleMoviesSearch(request, isShort) {
+  function handleMoviesSearch(request) {
     setNotFound(false);
     setLoading(true);
     localStorage.setItem('isNotFound', false);
     setFilteredMoviesList([]);
-    const filteredMovies = filterMovies(moviesList, request, isShort);
+    const filteredMovies = filterMovies(moviesList, request);
 
     if (filteredMovies.length === 0) {
       setNotFound(true);
@@ -139,7 +130,7 @@ function App() {
     setLoading(false);
   }
 
-  function handleMoviesSearchApi(request, isShort) {
+  function handleMoviesSearchApi(request) {
     setNotFound(false);
     setLoading(true);
     localStorage.setItem('isNotFound', false);
@@ -148,7 +139,7 @@ function App() {
       .then((movies) => {
         setMoviesList(movies);
 
-        const filteredMovies = filterMovies(movies, request, isShort);
+        const filteredMovies = filterMovies(movies, request);
 
         if (filteredMovies.length === 0) {
           setNotFound(true);
@@ -168,9 +159,9 @@ function App() {
       .finally(() => setLoading(false));
   }
 
-  function handleSavedMoviesSearch(request, isShort) {
+  function handleSavedMoviesSearch(request) {
     setNotFoundSavedMovies(false);
-    const filteredMovies = filterMovies(savedMoviesList, request, isShort);
+    const filteredMovies = filterMovies(savedMoviesList, request);
 
     if (filteredMovies.length === 0) {
       setNotFoundSavedMovies(true);
