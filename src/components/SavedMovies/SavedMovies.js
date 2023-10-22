@@ -12,11 +12,13 @@ function SavedMovies({
   onSearchFormSubmit,
   savedMoviesList,
   setFilteredSavedMoviesList,
+  setNotFoundSavedMovies,
 }) {
   React.useEffect(() => {
     return () => {
       setFilteredSavedMoviesList(savedMoviesList);
       onShortFilmFilterChange(false);
+      setNotFoundSavedMovies(false);
     };
   }, []);
 

@@ -351,6 +351,7 @@ function App() {
                     onShortFilmFilterChange={setSavedShortFilmFilterOn}
                     isShortFilmFilterOn={isSavedShortFilmFilterOn}
                     onSearchFormSubmit={handleSavedMoviesSearch}
+                    setNotFoundSavedMovies={setNotFoundSavedMovies}
                   />
                   <ProtectedRoute element={Footer} />
                 </>
