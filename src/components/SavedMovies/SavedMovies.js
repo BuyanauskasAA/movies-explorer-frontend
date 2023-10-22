@@ -10,7 +10,16 @@ function SavedMovies({
   isShortFilmFilterOn,
   onShortFilmFilterChange,
   onSearchFormSubmit,
+  savedMoviesList,
+  setFilteredSavedMoviesList,
 }) {
+  React.useEffect(() => {
+    return () => {
+      setFilteredSavedMoviesList(savedMoviesList);
+      onShortFilmFilterChange(false);
+    };
+  }, []);
+
   return (
     <main className="movies">
       <SearchForm

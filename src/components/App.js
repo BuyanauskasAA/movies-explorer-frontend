@@ -345,6 +345,7 @@ function App() {
                     element={SavedMovies}
                     savedMoviesList={savedMoviesList}
                     filteredSavedMoviesList={filteredSavedMoviesList}
+                    setFilteredSavedMoviesList={setFilteredSavedMoviesList}
                     isNotFound={isNotFoundSavedMovies}
                     onMovieCardRemove={handleMovieCardRemove}
                     onShortFilmFilterChange={setSavedShortFilmFilterOn}
