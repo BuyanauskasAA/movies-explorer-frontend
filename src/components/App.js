@@ -250,7 +250,13 @@ function App() {
         localStorage.removeItem('loggedIn');
         setLoggedIn(false);
         setFilteredSavedMoviesList([]);
+        setSavedMoviesList([]);
+        setNotFoundSavedMovies(false);
+        setSavedShortFilmFilterOn(false);
         setFilteredMoviesList([]);
+        setMoviesList([]);
+        setNotFound(false);
+        setShortFilmFilterOn(false);
         navigate('/', { replace: true });
       })
       .catch((error) => {
