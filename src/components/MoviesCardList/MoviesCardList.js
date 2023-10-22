@@ -5,6 +5,7 @@ import Preloader from '../Preloader/Preloader';
 import Error from '../Error/Error';
 import { getMoviesError } from '../../utils/error-messages-handler';
 import { shortFilmDuration } from '../../utils/short-film-duration';
+import { cardsPerPage, addMoreCardsCount } from '../../utils/cards-count-config';
 
 function MoviesCardList({
   cards,
@@ -21,11 +22,11 @@ function MoviesCardList({
   React.useEffect(() => {
     const onResize = () => {
       if (window.innerWidth >= 1280) {
-        setInitialCardsCount(12);
+        setInitialCardsCount(cardsPerPage.onLargeResolution);
       } else if (window.innerWidth < 768) {
-        setInitialCardsCount(5);
+        setInitialCardsCount(cardsPerPage.onSmallResolution);
       } else {
-        setInitialCardsCount(8);
+        setInitialCardsCount(cardsPerPage.onMiddleResolution);
       }
     };
 
@@ -39,11 +40,11 @@ function MoviesCardList({
 
   function handleShowMore() {
     if (window.innerWidth >= 1280) {
-      setInitialCardsCount(initialCardsCount + 3);
+      setInitialCardsCount(initialCardsCount + addMoreCardsCount.onLargeResolution);
     } else if (window.innerWidth < 768) {
-      setInitialCardsCount(initialCardsCount + 1);
+      setInitialCardsCount(initialCardsCount + addMoreCardsCount.onSmallResolution);
     } else {
-      setInitialCardsCount(initialCardsCount + 2);
+      setInitialCardsCount(initialCardsCount + addMoreCardsCount.onMiddleResolution);
     }
   }
 
