@@ -1,0 +1,169 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  margin: 70px auto;
+}
+
+.profile__title {
+  margin: 4px 0 107px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.21;
+  text-align: center;
+}
+
+.profile__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__input-container {
+  display: flex;
+  justify-content: space-between;
+  width: 410px;
+  padding: 17px 0 16px;
+  border-bottom: 1px solid #424242;
+}
+
+.profile__input-container:last-of-type {
+  border-bottom: 0;
+}
+
+.profile__label {
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 1.21;
+}
+
+.profile__input {
+  flex: 1 1 auto;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: inherit;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.21;
+  color: #fff;
+  text-align: end;
+}
+
+.profile__input::placeholder {
+  color: #fff;
+  text-align: end;
+}
+
+.profile__submit-button {
+  display: none;
+  margin-top: 198px;
+  padding: 13px 0 15px;
+  border: 0;
+  border-radius: 3px;
+  background-color: #4285f4;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.profile__submit-button:hover {
+  opacity: 0.8;
+}
+
+.profile__submit-button_active {
+  display: block;
+}
+
+.profile__button-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 205px;
+}
+
+.profile__edit-button {
+  display: none;
+  padding: 0;
+  border: 0;
+  background: inherit;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.21;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.7;
+}
+
+.profile__edit-button_active {
+  display: block;
+}
+
+.profile__logout-button {
+  display: none;
+  margin: 16px 0 0;
+  padding: 0;
+  border: 0;
+  background: inherit;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.21;
+  color: #ee3465;
+  cursor: pointer;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.profile__logout-button:hover {
+  opacity: 0.7;
+}
+
+.profile__logout-button_active {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .profile {
+    margin: 232px auto 269px;
+  }
+
+  .profile__title {
+    margin: 4px 0 80px;
+  }
+
+  .profile__button-container {
+    margin-top: 196px;
+  }
+}
+
+@media (max-width: 450px) {
+  .profile {
+    margin: 66px 30px 100px;
+  }
+
+  .profile__title {
+    margin: 4px 0 64px;
+  }
+
+  .profile__input-container {
+    width: 100%;
+    padding: 17px 0 16px;
+    border-bottom: 1px solid #424242;
+  }
+
+  .profile__button-container {
+    margin-top: 365px;
+  }
+
+  .profile__edit-button {
+    font-size: 12px;
+  }
+
+  .profile__logout-button {
+    font-size: 12px;
+  }
+}

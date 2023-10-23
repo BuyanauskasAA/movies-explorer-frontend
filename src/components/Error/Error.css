@@ -1,0 +1,14 @@
+.error {
+  margin: 0 0 15px 0;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.21;
+  color: #ee3465;
+  text-align: center;
+  visibility: hidden;
+  transition: visibility 0.25s ease-in-out;
+}
+
+.error_active {
+  visibility: visible;
+}
