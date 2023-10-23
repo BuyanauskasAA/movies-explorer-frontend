@@ -1,23 +1,99 @@
+import React from 'react';
 import './Register.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
-import FormInput from '../FormInput/FormInput';
-import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
 import Error from '../Error/Error';
+import { getRegisterErrorMessage } from '../../utils/error-messages-handler';
 
-function Register() {
+function Register({ onRegister, isErrorVisible, errorStatus }) {
+  const [formValue, setFormValue] = React.useState({});
+  const [formErrors, setFormErrors] = React.useState({ name: '', email: '', password: '' });
+  const [isFormValid, setFormValid] = React.useState(false);
+  const formSubmitButton = React.useRef();
+
+  function handleChange(event) {
+    const target = event.target;
+    const { name, value } = target;
+    setFormValue({ ...formValue, [name]: value });
+    setFormErrors({ ...formErrors, [name]: target.validationMessage });
+    setFormValid(target.closest('form').checkValidity());
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    onRegister(formValue, formSubmitButton.current);
+  }
+
   return (
     <main className="register">
       <Logo />
       <h1 className="register__title">Добро пожаловать!</h1>
-      <form className="register__form">
+      <form className="register__form" noValidate>
         <div className="register__container">
-          <FormInput name="name" type="text" text="Имя" />
-          <FormInput name="email" type="email" text="E-mail" />
-          <FormInput name="password" type="password" text="Пароль" />
+          <label className="register-label" htmlFor="name">
+            Имя
+          </label>
+          <input
+            onChange={handleChange}
+            className={`register-input ${
+              formErrors.name.length > 0 ? 'register-input__error' : ''
+            }`}
+            id="name"
+            name="name"
+            type="text"
+            required
+            minLength={2}
+            maxLength={30}
+            autoComplete="on"
+            pattern="[a-zA-Zа-яА-ЯёЁ\s\-]+"
+          />
+          <span className="register-input-error">{formErrors.name}</span>
+          <label className="register-label" htmlFor="email">
+            E-mail
+          </label>
+          <input
+            onChange={handleChange}
+            className={`register-input ${
+              formErrors.email.length > 0 ? 'register-input__error' : ''
+            }`}
+            id="email"
+            name="email"
+            type="email"
+            pattern="[a-zA-Z0-9\.\-_]+@[a-zA-Z0-9\.\-_]+\.[a-zA-Z0-9\-_]+"
+            required
+            autoComplete="on"
+          />
+          <span className="register-input-error">{formErrors.email}</span>
+          <label className="register-label" htmlFor="password">
+            Пароль
+          </label>
+          <input
+            onChange={handleChange}
+            className={`register-input ${
+              formErrors.password.length > 0 ? 'register-input__error' : ''
+            }`}
+            id="password"
+            name="password"
+            type="password"
+            minLength="2"
+            maxLength="30"
+            required
+          />
+          <span className="register-input-error">{formErrors.password}</span>
         </div>
-        <Error isActive={false} text="Пользователь с таким email уже существует." />
-        <FormSubmitButton text="Зарегистрироваться" />
+        <Error isActive={isErrorVisible} text={getRegisterErrorMessage(errorStatus)} />
+        <button
+          ref={formSubmitButton}
+          onClick={handleSubmit}
+          className={`register-submit-button ${
+            isFormValid ? '' : 'register-submit-button_disabled'
+          }`}
+          type="submit"
+          disabled={!isFormValid}
+        >
+          Зарегистрироваться
+        </button>
       </form>
       <div className="register__caption">
         <p className="register__text">Уже зарегистрированы?</p>

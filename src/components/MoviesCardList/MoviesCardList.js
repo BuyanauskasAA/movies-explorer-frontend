@@ -1,26 +1,110 @@
+import React from 'react';
 import './MoviesCardList.css';
-import { useLocation } from 'react-router-dom';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import Preloader from '../Preloader/Preloader';
+import Error from '../Error/Error';
+import { getMoviesError } from '../../utils/error-messages-handler';
+import { shortFilmDuration } from '../../utils/short-film-duration';
+import { cardsPerPage, addMoreCardsCount } from '../../utils/cards-count-config';
 
-function MoviesCardList({ cards }) {
-  const { pathname } = useLocation();
+function MoviesCardList({
+  cards,
+  isLoading,
+  isNotFound,
+  isErrorVisible,
+  onMovieCardSave,
+  savedCards,
+  onMovieCardRemove,
+  isShortFilmFilterOn,
+}) {
+  const [initialCardsCount, setInitialCardsCount] = React.useState(0);
 
-  const cardsList = cards.map((card) => (
-    <li key={card._id}>
-      <MoviesCard card={card} />
-    </li>
-  ));
+  React.useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth >= 1280) {
+        setInitialCardsCount(cardsPerPage.onLargeResolution);
+      } else if (window.innerWidth < 768) {
+        setInitialCardsCount(cardsPerPage.onSmallResolution);
+      } else {
+        setInitialCardsCount(cardsPerPage.onMiddleResolution);
+      }
+    };
+
+    window.addEventListener('resize', onResize);
+    onResize();
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
+
+  function handleShowMore() {
+    if (window.innerWidth >= 1280) {
+      setInitialCardsCount(initialCardsCount + addMoreCardsCount.onLargeResolution);
+    } else if (window.innerWidth < 768) {
+      setInitialCardsCount(initialCardsCount + addMoreCardsCount.onSmallResolution);
+    } else {
+      setInitialCardsCount(initialCardsCount + addMoreCardsCount.onMiddleResolution);
+    }
+  }
+
+  const likedCards = savedCards.map((card) => card.movieId);
+
+  const cardsList = isShortFilmFilterOn
+    ? cards
+        .filter((card) => card.duration <= shortFilmDuration)
+        .slice(0, initialCardsCount)
+        .map((card) => {
+          card.isLiked = likedCards.includes(card.id);
+          return (
+            <li key={card.id}>
+              <MoviesCard
+                card={card}
+                onMovieCardSave={onMovieCardSave}
+                onMovieCardRemove={onMovieCardRemove}
+              />
+            </li>
+          );
+        })
+    : cards.slice(0, initialCardsCount).map((card) => {
+        card.isLiked = likedCards.includes(card.id);
+        return (
+          <li key={card.id}>
+            <MoviesCard
+              card={card}
+              onMovieCardSave={onMovieCardSave}
+              onMovieCardRemove={onMovieCardRemove}
+            />
+          </li>
+        );
+      });
+
+  let isButtonVisible;
+
+  if (isShortFilmFilterOn) {
+    if (cards.filter((card) => card.duration <= shortFilmDuration).length > initialCardsCount) {
+      isButtonVisible = true;
+    } else {
+      isButtonVisible = false;
+    }
+  } else {
+    if (cards.length > initialCardsCount) {
+      isButtonVisible = true;
+    } else {
+      isButtonVisible = false;
+    }
+  }
 
   return (
     <section className="movies-card-list">
-      {cardsList.length > 0 ? (
-        <ul className="movies-card-list__container">{cardsList}</ul>
-      ) : (
-        <h2 className="movies-card-list__not-found">Без результатов поиска</h2>
-      )}
-      {pathname === '/movies' && (
+      {isNotFound && <h2 className="movies-card-list__not-found">Ничего не найдено</h2>}
+      {isLoading && <Preloader />}
+      {cardsList.length > 0 && <ul className="movies-card-list__container">{cardsList}</ul>}
+      <Error isActive={isErrorVisible} text={getMoviesError} />
+      {isButtonVisible && (
         <button
-          className="movies-card-list__load-more-button movies-card-list__load-more-button_active"
+          onClick={handleShowMore}
+          className="movies-card-list__load-more-button"
           type="button"
         >
           Ещё

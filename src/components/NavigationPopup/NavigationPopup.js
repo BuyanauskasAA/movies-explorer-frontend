@@ -43,14 +43,18 @@ function NavigationPopup({ isOpened, onClose }) {
               onClick={onClose}
               to="/saved-movies"
               className={({ isActive }) =>
-                `navigation-popup__link ${isActive ? 'navigation-popup__link_active' : ''} `
+                `navigation-popup__link ${isActive ? 'navigation-popup__link_active' : ''}`
               }
             >
               Сохранённые фильмы
             </NavLink>
           </li>
         </ul>
-        <Link to="/profile" className="navigation-popup__link navigation-popup__link_type_profile">
+        <Link
+          to="/profile"
+          onClick={onClose}
+          className="navigation-popup__link navigation-popup__link_type_profile"
+        >
           Аккаунт
         </Link>
       </div>

@@ -1,22 +1,75 @@
+import React from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo/Logo';
-import FormInput from '../FormInput/FormInput';
-import FormSubmitButton from '../FormSubmitButton/FormSubmitButton';
 import Error from '../Error/Error';
+import { getLoginErrorMessage } from '../../utils/error-messages-handler';
 
-function Login() {
+function Login({ onLogin, isErrorVisible, errorStatus }) {
+  const [formValue, setFormValue] = React.useState({});
+  const [formErrors, setFormErrors] = React.useState({ email: '', password: '' });
+  const [isFormValid, setFormValid] = React.useState(false);
+  const formSubmitButton = React.useRef();
+
+  function handleChange(event) {
+    const target = event.target;
+    const { name, value } = target;
+    setFormValue({ ...formValue, [name]: value });
+    setFormErrors({ ...formErrors, [name]: target.validationMessage });
+    setFormValid(target.closest('form').checkValidity());
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    onLogin(formValue, formSubmitButton.current);
+  }
+
   return (
     <main className="login">
       <Logo />
       <h1 className="login__title">Рады видеть!</h1>
       <form className="login__form">
         <div className="login__container">
-          <FormInput name="email" type="email" text="E-mail" />
-          <FormInput name="password" type="password" text="Пароль" />
+          <label className="login-label" htmlFor="email">
+            E-mail
+          </label>
+          <input
+            onChange={handleChange}
+            className={`login-input ${formErrors.email.length > 0 ? 'login-input__error' : ''}`}
+            id="email"
+            name="email"
+            type="email"
+            pattern="[a-zA-Z0-9\.\-_]+@[a-zA-Z0-9\.\-_]+\.[a-zA-Z0-9\-_]+"
+            required
+            autoComplete="on"
+          />
+          <span className="login-input-error">{formErrors.email}</span>
+          <label className="login-label" htmlFor="password">
+            Пароль
+          </label>
+          <input
+            onChange={handleChange}
+            className={`login-input ${formErrors.password.length > 0 ? 'login-input__error' : ''}`}
+            id="password"
+            name="password"
+            type="password"
+            minLength="2"
+            maxLength="30"
+            required
+          />
+          <span className="login-input-error">{formErrors.password}</span>
         </div>
-        <Error isActive={false} text="Вы ввели неправильный логин или пароль." />
-        <FormSubmitButton text="Войти" />
+        <Error isActive={isErrorVisible} text={getLoginErrorMessage(errorStatus)} />
+        <button
+          ref={formSubmitButton}
+          onClick={handleSubmit}
+          className={`login-submit-button ${isFormValid ? '' : 'login-submit-button_disabled'}`}
+          type="submit"
+          disabled={!isFormValid}
+        >
+          Войти
+        </button>
       </form>
       <div className="login__caption">
         <p className="login__text">Ещё не зарегистрированы?</p>
