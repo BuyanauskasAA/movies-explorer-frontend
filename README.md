@@ -1,11 +1,17 @@
 # movies-explorer-frontend
 
+`Movies-explorer` - это сервис, в котором можно найти фильмы по запросу и сохранить в личном кабинете.
+
 Фронтенд для приложения `Movies-explorer`.
 
-Адрес репозитория: https://github.com/BuyanauskasAA/movies-explorer-frontend
+## Setup
 
-Макет проекта: [dark-2](https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/%D0%94%D0%B8%D0%BF%D0%BB%D0%BE%D0%BC%D0%BD%D1%8B%D0%B9-%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82?type=design&node-id=1-7266&mode=design)
+```sh
+npm install
+```
+## Технологии
 
-Ссылка на проект: https://diploma.buyanauskas.nomoredomainsicu.ru
-
-Ссылка на pull request: https://github.com/BuyanauskasAA/movies-explorer-frontend/pull/2
+1. JavaScript
+2. React.js
+3. HTML5
+4. CSS3
